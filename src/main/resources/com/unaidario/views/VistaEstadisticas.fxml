@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchorPane2" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.unaidarioefra.controlador.PortadaControlador">
+<AnchorPane fx:id="anchorPane2" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.unaidario.controlador.PortadaControlador">
     <VBox fx:id="cajavertical" alignment="CENTER" prefHeight="600" prefWidth="400" spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <!-- Campos de texto para las estadísticas -->
         <HBox fx:id="cajaHorizontal1" alignment="CENTER" spacing="10">
