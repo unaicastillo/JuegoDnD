@@ -1,10 +1,10 @@
-module com.unaidarioefra {
+module com.unaidario {
     requires javafx.controls;
     requires javafx.fxml;
 
-    exports com.unaidarioefra;
-    exports com.unaidarioefra.controlador to javafx.fxml;
+    exports com.unaidario;
+    exports com.unaidario.controlador to javafx.fxml;
 
-    opens com.unaidarioefra.controlador to javafx.fxml;
-    opens com.unaidarioefra.views to javafx.fxml;
+    opens com.unaidario.controlador to javafx.fxml;
+    opens com.unaidario.views to javafx.fxml;
 }

@@ -10,7 +10,7 @@ import com.unaidario.Modelo.Enemigo;
 public class LectorEnemigo {
     public static ArrayList<Enemigo> leerEnemigos() {
         ArrayList<Enemigo> enemigos = new ArrayList<>();
-        String archivoCsv = "src/main/resources/com/unaidarioefra/files/ArchivoEnemigos.csv";
+        String archivoCsv = "src/main/resources/com/unaidario/files/ArchivoEnemigos.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivoCsv))) {
             String linea;

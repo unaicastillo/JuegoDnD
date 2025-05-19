@@ -33,9 +33,9 @@ public class JuegoControlador implements Observer {
     @FXML
     public void initialize() {
         imagenesEnemigos = new HashMap<>();
-        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esbirro.png")));
-        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esqueleto.png")));
-        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/zombie.png")));
+        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidario/images/esbirro.png")));
+        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidario/images/esqueleto.png")));
+        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidario/images/zombie.png")));
         enemigos = Juego.getInstance().getEnemigos();
     }
     
