@@ -1,4 +1,4 @@
-package com.unaidarioefra.Modelo;
+package com.unaidario.Modelo;
 
 public class Mapa {
     private String suelo;

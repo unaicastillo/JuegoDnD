@@ -1,8 +1,8 @@
-package com.unaidarioefra.controlador;
+package com.unaidario.controlador;
 
-import com.unaidarioefra.SceneID;
-import com.unaidarioefra.SceneManager;
-import com.unaidarioefra.Modelo.Prota;
+import com.unaidario.SceneID;
+import com.unaidario.SceneManager;
+import com.unaidario.Modelo.Prota;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

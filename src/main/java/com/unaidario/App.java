@@ -1,4 +1,4 @@
-package com.unaidarioefra;
+package com.unaidario;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

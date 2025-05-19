@@ -1,7 +1,8 @@
-package com.unaidarioefra.Modelo;
+package com.unaidario.Modelo;
 
 import java.util.ArrayList;
-import com.unaidarioefra.lectores.LectorEnemigo;
+
+import com.unaidario.lectores.LectorEnemigo;
 
 public class Juego {
     private static Juego instance;

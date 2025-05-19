@@ -1,13 +1,13 @@
-package com.unaidarioefra.controlador;
+package com.unaidario.controlador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.unaidarioefra.Interfaz.Observer;
-import com.unaidarioefra.Modelo.Enemigo;
-import com.unaidarioefra.Modelo.GestorMapa;
-import com.unaidarioefra.Modelo.Juego;
-import com.unaidarioefra.Modelo.Mapa;
+import com.unaidario.Interfaz.Observer;
+import com.unaidario.Modelo.Enemigo;
+import com.unaidario.Modelo.GestorMapa;
+import com.unaidario.Modelo.Juego;
+import com.unaidario.Modelo.Mapa;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
