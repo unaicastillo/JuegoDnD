@@ -3,6 +3,7 @@ package com.unaidario.controlador;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.unaidario.App;
 import com.unaidario.Interfaz.Observer;
 import com.unaidario.Modelo.Enemigo;
 import com.unaidario.Modelo.GestorMapa;
@@ -27,16 +28,19 @@ public class JuegoControlador implements Observer {
     private HashMap<Integer, Image> imagenesEnemigos;
     private ArrayList<Enemigo> enemigos;
 
-    GestorMapa gestorMapa;
-    Juego juego;
+    Juego juego2= Juego.getInstance();
+    
 
     @FXML
     public void initialize() {
-         imagenesEnemigos = new HashMap<>();
-        // imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("Images/esbirro.jpg")));
-        // imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("Images/esqueleto.jpg")));
-        // imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("Images/zombie.jpg")));
-        enemigos = Juego.getInstance().getEnemigos();
+        imagenesEnemigos = new HashMap<>();
+        imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.jpg")));
+        imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.jpg")));
+        imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.jpg")));
+        enemigos =juego2.getEnemigos();
+        inicializarVista();
+        generarMapa(); 
+        pintarPersonajes();
     }
     
     public void inicializarVista() {
@@ -65,18 +69,22 @@ public class JuegoControlador implements Observer {
         anchorPane.getChildren().add(splitPane);
     }
     
+   
+
+
+
     public void generarMapa() {
         
-        gridPane.getChildren().clear();
-        Mapa mapaActual = Juego.getInstance().getGestorMapas().getMapaActual();
+        gridPane.getChildren();
+        Mapa mapaActual = juego2.getGestorMapas().getMapaActual();
         int[][] matriz = mapaActual.getMapa();
         int filas = matriz.length;
         int columnas = matriz[0].length;
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
 
-        Image suelo = new Image(getClass().getResourceAsStream(mapaActual.getSuelo()));
-        Image pared = new Image(getClass().getResourceAsStream(mapaActual.getPared()));
+        Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.jpg"));
+        Image pared = new Image(App.class.getResourceAsStream("Images/pared1.jpg"));
 
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
@@ -95,16 +103,16 @@ public class JuegoControlador implements Observer {
         }
     }
 
-    public void cambiarMapa(){
-        boolean haySiguiente=gestorMapa.avanzarAlSiguienteMapa();
-        if (haySiguiente){
-            HashMap<String,Mapa> mapas= juego.getGestorMapas().getMapas();
-            mapas.clear();
-            generarMapa();
-            juego.iniciarentidades();
-            pintarPersonajes();
-        }
-    }
+    // public void cambiarMapa(){
+    //     boolean haySiguiente=gestorMapa.avanzarAlSiguienteMapa();
+    //     if (haySiguiente){
+    //         HashMap<String,Mapa> mapas= juego.getGestorMapas().getMapas();
+    //         mapas.clear();
+    //         generarMapa();
+    //         juego.iniciarentidades();
+    //         pintarPersonajes();
+    //     }
+    // }
 
     private void pintarPersonajes() {
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);

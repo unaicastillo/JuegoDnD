@@ -32,17 +32,17 @@ public class GestorMapa {
         mapaActual = this.mapas.values().iterator().next();
     }
 
-    public boolean avanzarAlSiguienteMapa() {
-        ArrayList<Mapa> listaMapas = new ArrayList<>(mapas.values());
-        int indiceActual = listaMapas.indexOf(mapaActual);
-        if (indiceActual < listaMapas.size() - 1) {
-            mapaActual = listaMapas.get(indiceActual + 1);
-            notifyObservers();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public boolean avanzarAlSiguienteMapa() {
+    //     ArrayList<Mapa> listaMapas = new ArrayList<>(mapas.values());
+    //     int indiceActual = listaMapas.indexOf(mapaActual);
+    //     if (indiceActual < listaMapas.size() - 1) {
+    //         mapaActual = listaMapas.get(indiceActual + 1);
+    //         notifyObservers();
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public HashMap<String,Mapa> getMapas() {
         return this.mapas;

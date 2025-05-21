@@ -8,17 +8,19 @@ public class Enemigo {
     private int ataque;
     private int defensa;
     private int evasion;
+    private int percepcion;
     private int velocidad;
     private int posicionX;
     private int posicionY;
 
-    public Enemigo(int tipo, int vida, int ataque, int defensa, int evasion, int velocidad, int posicionX, int posicionY) {
+    public Enemigo(int tipo, int vida, int ataque, int defensa, int evasion,int percepcion, int velocidad, int posicionX, int posicionY) {
         this.tipo = tipo;
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.evasion = evasion;
         this.velocidad = velocidad;
+        this.percepcion = percepcion;
         this.posicionX = posicionX;
         this.posicionY = posicionY;
     }

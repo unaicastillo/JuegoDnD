@@ -23,11 +23,12 @@ public class LectorEnemigo {
                 int ataque = Integer.parseInt(valores[2]);
                 int defensa = Integer.parseInt(valores[3]);
                 int evasion = Integer.parseInt(valores[4]);
-                int velocidad = Integer.parseInt(valores[5]);
-                int posicionX = Integer.parseInt(valores[6]);
-                int posicionY = Integer.parseInt(valores[7]);
+                int percepcion= Integer.parseInt(valores[5]);
+                int velocidad = Integer.parseInt(valores[6]);
+                int posicionX = Integer.parseInt(valores[7]);
+                int posicionY = Integer.parseInt(valores[8]);
 
-                Enemigo enemigo = new Enemigo(tipo, salud, ataque, defensa, evasion, velocidad, posicionX, posicionY);
+                Enemigo enemigo = new Enemigo(tipo, salud, ataque, defensa, evasion,percepcion, velocidad, posicionX, posicionY);
                 enemigos.add(enemigo);
             }
         } catch (IOException e) {

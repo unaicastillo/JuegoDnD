@@ -1,6 +1,6 @@
 #nivel:1
-#suelo:src\main\resources\com\unaidarioefra\images\suelo1.jpg
-#pared:src\main\resources\com\unaidarioefra\images\pared1.jpg
+#suelo:Images\suelo1.jpg
+#pared:Images\pared1.jpg
 #tamanoX:20
 #tamanoy:20
 00000000000000000000

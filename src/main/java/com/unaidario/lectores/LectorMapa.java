@@ -10,6 +10,7 @@ import com.unaidario.Modelo.Mapa;
 public class LectorMapa {
     public static ArrayList<Mapa> leerMapa() {
         ArrayList<Mapa> listaMapas = new ArrayList<>();
+        // try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/com/unaidario/files/Mapa.unai"))) {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/com/unaidario/files/Mapa.unai"))) {
             String linea;
             String suelo = null, pared = null, nivel = null;
