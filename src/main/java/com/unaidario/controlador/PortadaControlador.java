@@ -62,7 +62,7 @@ public class PortadaControlador {
     @FXML
     public void initialize() {
         // Inicializar el protagonista
-        prota = new Prota(0, 0, 0, 0, 0);
+        prota = new Prota(0, 0, 0, 0, 0, 1, 1);
 
         // Añadir listeners para habilitar el botón solo cuando todos los campos estén
         // rellenados

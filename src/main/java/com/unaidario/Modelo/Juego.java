@@ -8,7 +8,7 @@ public class Juego {
     private static Juego instance;
     private int nivel;
     private GestorMapa GestorMapa; 
-    private ArrayList<Enemigo> enemigos; // Lista de enemigos
+    private ArrayList<Enemigo> enemigos; 
     
     public static Juego getInstance() {
         if (instance == null) {
@@ -18,8 +18,8 @@ public class Juego {
     }
     
     private Juego() {
-        GestorMapa = new GestorMapa(); // <-- Añade esta línea
-        enemigos = new ArrayList<>(); // Inicializar la lista de enemigos
+        GestorMapa = new GestorMapa(); 
+        enemigos = LectorEnemigo.leerEnemigos();
         
     }
 
