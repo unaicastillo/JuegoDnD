@@ -6,12 +6,21 @@ public class Prota {
     public int defensa;
     public int evasion;
     public int velocidad;
-    public Prota(int vida, int ataque, int defensa, int evasion, int velocidad) {
+    public int posicionX;
+    public int posicionY;
+    private Movimientos movimientos;
+
+    public Prota(){
+        movimientos = new Movimientos();
+    }
+    public Prota(int vida, int ataque, int defensa, int evasion, int velocidad, Movimientos movimientos) {
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.evasion = evasion;
         this.velocidad = velocidad;
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
     }
     public int getVida() {
         return vida;
@@ -61,5 +70,23 @@ public class Prota {
         
         this.velocidad = velocidad;
     }
+
+    public int getPosicionX(){
+        return posicionX;
+    }
+
+    public int getPosicionY(){
+        return posicionY;
+    }
+
+    public void setPosicionX(int posicionX){
+        this.posicionX = posicionX;
+    }
+
+    public void setPosicionY(int posicionY){
+        this.posicionY = posicionY;
+    }
+
+
 
 }
