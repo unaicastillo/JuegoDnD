@@ -12,15 +12,15 @@ public class Prota {
 
     public Prota(){
         movimientos = new Movimientos();
+        posicionX = 2;
+        posicionY = 2;
     }
-    public Prota(int vida, int ataque, int defensa, int evasion, int velocidad, Movimientos movimientos) {
+    public Prota(int vida, int ataque, int defensa, int evasion, int velocidad) {
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.evasion = evasion;
         this.velocidad = velocidad;
-        this.posicionX=posicionX;
-        this.posicionY=posicionY;
     }
     public int getVida() {
         return vida;
