@@ -50,4 +50,21 @@ public class Juego {
     public void setProta(Prota prota) {
         this.prota = prota;
     }
+    public ArrayList<Entidad> orden() {
+        ArrayList<Entidad> ordenados = new ArrayList<>();
+        ordenados.add(prota);
+        ordenados.addAll(enemigos);
+        ordenados.sort(null); 
+        return ordenados;
+    }
+    public void Turnos(){
+        ArrayList<Entidad> ordenados = orden();
+        for (Entidad entidad : ordenados) {
+            if (entidad instanceof Prota) {
+                // Lógica del Prota
+            } else if (entidad instanceof Enemigo) {
+                // Lógica del Enemigo
+            }
+        }
+    }
 }
