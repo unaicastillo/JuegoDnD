@@ -7,8 +7,6 @@ import com.unaidario.lectores.LectorEnemigo;
 public class Juego {
     private static Juego instance;
     private int nivel;
-    private GestorMapa GestorMapa;
-    private ArrayList<Enemigo> enemigos; // Lista de enemigos
 
     public static Juego getInstance() {
         if (instance == null) {
@@ -22,8 +20,6 @@ public class Juego {
     }
 
     private Juego() {
-        GestorMapa = new GestorMapa(); // <-- Añade esta línea
-        enemigos = new ArrayList<>(); // Inicializar la lista de enemigos
 
     }
 
@@ -45,5 +41,11 @@ public class Juego {
 
     public ArrayList<Enemigo> getEnemigos() {
         return enemigos;
+    }
+    public Prota getProta() {
+        return prota;
+    }
+    public void setProta(Prota prota) {
+        this.prota = prota;
     }
 }

@@ -2,6 +2,7 @@ package com.unaidario.controlador;
 
 import com.unaidario.SceneID;
 import com.unaidario.SceneManager;
+import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Prota;
 
 import javafx.fxml.FXML;
@@ -58,11 +59,12 @@ public class PortadaControlador {
     private AnchorPane anchorPane2;
 
     private Prota prota;
-
+    
+    Juego juego2 = Juego.getInstance();
     @FXML
     public void initialize() {
         // Inicializar el protagonista
-        prota = new Prota(0, 0, 0, 0, 0);
+        prota = new Prota(0, 0, 0, 0, 0, 1, 1);
 
         // Añadir listeners para habilitar el botón solo cuando todos los campos estén
         // rellenados
@@ -85,13 +87,14 @@ public class PortadaControlador {
     @FXML
     private void cambiarAVistaJuego() {
         try {
+            prota = juego2.getProta();
             // Asignar valores a los atributos del protagonista
             prota.setVida(Integer.parseInt(vidaField.getText()));
             prota.setAtaque(Integer.parseInt(ataqueField.getText()));
             prota.setDefensa(Integer.parseInt(defensaField.getText()));
             prota.setEvasion(Integer.parseInt(evasionField.getText()));
             prota.setVelocidad(Integer.parseInt(velocidadField.getText()));
-
+            Juego.getInstance().setProta(prota);
             // Cambiar a la vista del juego
             SceneManager.getInstance().loadScene(SceneID.VistaJuego);
         } catch (NumberFormatException e) {
