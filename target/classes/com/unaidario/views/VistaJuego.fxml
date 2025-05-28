@@ -3,6 +3,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.unaidario.controlador.JuegoControlador">
-   
+<AnchorPane fx:id="anchorPane" focusTraversable="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.unaidario.controlador.JuegoControlador">
+
 </AnchorPane>

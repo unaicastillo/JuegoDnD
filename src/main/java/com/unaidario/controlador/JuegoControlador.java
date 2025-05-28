@@ -12,6 +12,7 @@ import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Mapa;
 import com.unaidario.Modelo.Prota;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
@@ -21,7 +22,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class JuegoControlador implements Observer {
-Prota prota;
+
+        Prota prota;
     @FXML
     private AnchorPane anchorPane;
     private GridPane estadisticasGridPane;
@@ -42,6 +44,11 @@ Prota prota;
         inicializarVista();
         generarMapa();
         pintarPersonajes();
+
+        anchorPane.setOnKeyPressed(event -> manejarTecla(event));
+        anchorPane.requestFocus(); // Asegura que el AnchorPane tenga el foco
+        Platform.runLater(() -> anchorPane.requestFocus()); // <-- Esto asegura el foco tras cargar la vista
+
     }
 
     public void inicializarVista() {
@@ -172,6 +179,21 @@ Prota prota;
     // enemigo.setPosicionY(nuevaY);
     // }
     // }
+
+    private void manejarTecla(javafx.scene.input.KeyEvent event) {
+        int tecla = -1;
+        switch (event.getCode()) {
+            case W: tecla = 0; break;
+            case A: tecla = 1; break;
+            case S: tecla = 2; break;
+            case D: tecla = 3; break;
+            default: return;
+        }
+        if (tecla != -1) {
+            prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(), tecla, enemigos);
+            pintarPersonajes();
+        }
+    }
 
     @Override
     public void onChange() {

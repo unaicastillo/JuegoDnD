@@ -6,7 +6,7 @@ public class Movimientos {
     
     private ArrayList<int[]> direcciones;
 
-    public void Movimientos(){
+    public Movimientos(){
         direcciones = new ArrayList<>();
         direcciones.add(new int[]{-1,0});   //Arriba    W   0
         direcciones.add(new int[]{0,-1});   //Izquierda A   1

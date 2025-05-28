@@ -7,13 +7,14 @@ public class Entidad {
     public int evasion;
     public int velocidad;
 
-
+    public Movimientos movimientos;
     public Entidad(int vida, int ataque, int defensa, int evasion, int velocidad) {
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.evasion = evasion;
         this.velocidad = velocidad;
+        movimientos = new Movimientos();
     }
 
    public void setVida(int vida) {
