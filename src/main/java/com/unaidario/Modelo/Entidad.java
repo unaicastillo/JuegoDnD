@@ -1,6 +1,6 @@
 package com.unaidario.Modelo;
 
-public class Entidad {
+public class Entidad implements Comparable<Entidad> {
     public int vida;
     public int ataque;
     public int defensa;
@@ -65,8 +65,8 @@ public class Entidad {
       public int getVida() {
         return vida;
     }
-   
-
-  
-    
+    @Override
+    public int compareTo(Entidad otra) {
+        return Integer.compare(this.getVelocidad(), otra.getVelocidad());
+    }
 }

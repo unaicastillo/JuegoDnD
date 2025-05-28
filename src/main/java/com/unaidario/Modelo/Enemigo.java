@@ -39,6 +39,12 @@ public class Enemigo extends Entidad {
     public int getPosicionY() {
         return posicionY;
     }
+    public int getPercepcion() {
+        return percepcion;
+    }
+    public void setPercepcion(int percepcion) {
+        this.percepcion = percepcion;
+    }
 
     public void setPosicionY(int posicionY) {
         this.posicionY = posicionY;

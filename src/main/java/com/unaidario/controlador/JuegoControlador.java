@@ -7,7 +7,6 @@ import com.unaidario.App;
 import com.unaidario.Interfaz.Observer;
 import com.unaidario.Modelo.Enemigo;
 import com.unaidario.Modelo.Entidad;
-import com.unaidario.Modelo.GestorMapa;
 import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Mapa;
 import com.unaidario.Modelo.Prota;
