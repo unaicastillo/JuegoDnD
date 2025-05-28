@@ -7,20 +7,22 @@ import com.unaidario.lectores.LectorEnemigo;
 public class Juego {
     private static Juego instance;
     private int nivel;
-
+    private GestorMapa GestorMapa; 
+    private ArrayList<Enemigo> enemigos; 
+    private Prota prota;
+    
     public static Juego getInstance() {
         if (instance == null) {
             instance = new Juego();
         }
         return instance;
     }
-
-    public void turno() {
-
-    }
-
+    
     private Juego() {
-
+        GestorMapa = new GestorMapa();
+        prota = new Prota(0, 0, 0,0, 0, 0, 0);
+        enemigos = LectorEnemigo.leerEnemigos();
+        
     }
 
     public int getNivel() {
@@ -40,7 +42,7 @@ public class Juego {
     }
 
     public ArrayList<Enemigo> getEnemigos() {
-        return enemigos;
+        return enemigos; 
     }
     public Prota getProta() {
         return prota;
