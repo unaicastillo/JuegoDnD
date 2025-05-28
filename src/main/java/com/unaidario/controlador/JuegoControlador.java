@@ -47,40 +47,25 @@ public class JuegoControlador implements Observer {
         generarMapa();
         pintarPersonajes();
         
-        anchorPane.requestFocus(); // Asegura que el AnchorPane tenga el foco
-        Platform.runLater(() -> anchorPane.requestFocus()); // <-- Esto asegura el foco tras cargar la vista
-        
 
         
         
         
         
         anchorPane.setOnKeyPressed(event -> {
-
-            boolean repetir = true;
-            do{
-                switch (event.getCode()) {
-                    case W:
-                    // Implementa el método moverArriba en Juego si no existe
-                        juego2.Turnos(0);
-                        break;
-                    case A:
-                        juego2.Turnos(1);
-                        break;
-                    case S:
-                        juego2.Turnos(2);
-                        break;
-                    case D:
-                        juego2.Turnos(3);
-                        break;
-                    default:
-                        repetir = false;
-                        return;
-                    
-                }
+            int tecla = -1;
+            switch (event.getCode()) {
+                case W: tecla = 0; break;
+                case A: tecla = 1; break;
+                case S: tecla = 2; break;
+                case D: tecla = 3; break;
+                default: return;
             }
-            while(repetir);
+            if (tecla != -1) {
+                juego2.Turnos(tecla);
                 
+                pintarPersonajes();
+            }
         });
 
         anchorPane.setFocusTraversable(true);
