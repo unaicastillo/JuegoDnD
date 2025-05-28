@@ -10,6 +10,7 @@ public class Juego {
     private GestorMapa GestorMapa; 
     private ArrayList<Enemigo> enemigos; 
     private Prota prota;
+    private Entidad entidadActual;
     
     public static Juego getInstance() {
         if (instance == null) {
@@ -24,7 +25,12 @@ public class Juego {
         enemigos = LectorEnemigo.leerEnemigos();
         
     }
-
+    public Entidad getEntidadActual() {
+        return entidadActual;
+    }
+    public void setEntidadActual(Entidad entidadActual) {
+        this.entidadActual = entidadActual;
+    }
     public int getNivel() {
         return nivel;
     }

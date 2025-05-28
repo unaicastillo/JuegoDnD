@@ -11,6 +11,8 @@ import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Mapa;
 import com.unaidario.Modelo.Prota;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
@@ -22,7 +24,7 @@ import javafx.scene.layout.VBox;
 
 public class JuegoControlador implements Observer {
 
-        Prota prota;
+    Prota prota;
     @FXML
     private AnchorPane anchorPane;
     private GridPane estadisticasGridPane;
@@ -35,6 +37,7 @@ public class JuegoControlador implements Observer {
 
     @FXML
     public void initialize() {
+        prota = juego2.getProta();
         imagenesEnemigos = new HashMap<>();
         imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.jpg")));
         imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.jpg")));
@@ -43,14 +46,53 @@ public class JuegoControlador implements Observer {
         inicializarVista();
         generarMapa();
         pintarPersonajes();
-
-        anchorPane.setOnKeyPressed(event -> manejarTecla(event));
+        
         anchorPane.requestFocus(); // Asegura que el AnchorPane tenga el foco
         Platform.runLater(() -> anchorPane.requestFocus()); // <-- Esto asegura el foco tras cargar la vista
+        
+
+        
+        
+        
+        
+        anchorPane.setOnKeyPressed(event -> {
+
+            boolean repetir = true;
+            do{
+                switch (event.getCode()) {
+                    case W:
+                    // Implementa el método moverArriba en Juego si no existe
+                        juego2.Turnos(0);
+                        break;
+                    case A:
+                        juego2.Turnos(1);
+                        break;
+                    case S:
+                        juego2.Turnos(2);
+                        break;
+                    case D:
+                        juego2.Turnos(3);
+                        break;
+                    default:
+                        repetir = false;
+                        return;
+                    
+                }
+            }
+            while(repetir);
+                
+        });
+
+        anchorPane.setFocusTraversable(true);
+        Platform.runLater(() -> anchorPane.requestFocus());
+
+
+
 
     }
 
     public void inicializarVista() {
+        prota = juego2.getProta();
 
         SplitPane splitPane = new SplitPane();
         splitPane.setDividerPositions(0.75);
@@ -68,7 +110,6 @@ public class JuegoControlador implements Observer {
         vbox.setSpacing(10);
 
         // Instancia del prota (puedes obtenerla de tu modelo si ya existe)
-        prota = juego2.getProta();
 
         // Añadir estadísticas del prota
         javafx.scene.control.Label titulo = new javafx.scene.control.Label("Estadísticas del Protagonista");
@@ -79,8 +120,7 @@ public class JuegoControlador implements Observer {
         javafx.scene.control.Label velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
 
         vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad
-        
-        
+
         );
 
         splitPane.getItems().addAll(gridPane, vbox);
@@ -179,21 +219,31 @@ public class JuegoControlador implements Observer {
     // }
     // }
 
-    private void manejarTecla(javafx.scene.input.KeyEvent event) {
-        int tecla = -1;
-        switch (event.getCode()) {
-            case W: tecla = 0; break;
-            case A: tecla = 1; break;
-            case S: tecla = 2; break;
-            case D: tecla = 3; break;
-            default: return;
-        }
-        
-        if (tecla != -1) {
-            prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(), tecla, enemigos);
-            pintarPersonajes();
-        }
-    }
+    // private void manejarTecla(javafx.scene.input.KeyEvent event) {
+    //     int tecla = -1;
+    //     switch (event.getCode()) {
+    //         case W:
+    //             tecla = 0;
+    //             break;
+    //         case A:
+    //             tecla = 1;
+    //             break;
+    //         case S:
+    //             tecla = 2;
+    //             break;
+    //         case D:
+    //             tecla = 3;
+    //             break;
+    //         default:
+    //             return;
+    //     }
+
+    //     if (tecla != -1) {
+    //         prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(), tecla, enemigos);
+    //         juego2.Turnos(tecla);
+    //         pintarPersonajes();
+    //     }
+    // }
 
     @Override
     public void onChange() {
