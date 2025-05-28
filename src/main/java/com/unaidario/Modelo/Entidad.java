@@ -1,5 +1,7 @@
 package com.unaidario.Modelo;
 
+import java.util.ArrayList;
+
 public class Entidad implements Comparable<Entidad> {
     public int vida;
     public int ataque;
@@ -69,4 +71,7 @@ public class Entidad implements Comparable<Entidad> {
     public int compareTo(Entidad otra) {
         return Integer.compare(this.getVelocidad(), otra.getVelocidad());
     }
+
+    
+    public void moverse(int[][] mapa, ArrayList<Entidad> entidades){}
 }

@@ -57,14 +57,34 @@ public class Juego {
         ordenados.sort(null); 
         return ordenados;
     }
-    public void Turnos(){
+    public void Turnos(int tecla){
         ArrayList<Entidad> ordenados = orden();
         for (Entidad entidad : ordenados) {
+
             if (entidad instanceof Prota) {
-                // Lógica del Prota
-            } else if (entidad instanceof Enemigo) {
-                // Lógica del Enemigo
+                prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, enemigos);
+
+            } else {
+                int posicion = posicionEnemigo(enemigos, ((Enemigo) entidad));
+                enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), prota, enemigos);
+
             }
         }
     }
+
+    public int posicionEnemigo(ArrayList<Enemigo> enemigos, Enemigo enemigoBuscado) {
+        for (int i = 0; i < enemigos.size(); i++) {
+            Enemigo e = enemigos.get(i);
+            if (e.getPosicionX() == enemigoBuscado.getPosicionX() &&
+                e.getPosicionY() == enemigoBuscado.getPosicionY() &&
+                e.getVida() == enemigoBuscado.getVida() &&
+                e.getAtaque() == enemigoBuscado.getAtaque() &&
+                e.getDefensa() == enemigoBuscado.getDefensa()) {
+                return i;
+            }
+        }
+        return -1; // No encontrado
+    }
+ 
+    
 }

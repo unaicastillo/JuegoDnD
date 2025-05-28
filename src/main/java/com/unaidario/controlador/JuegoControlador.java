@@ -188,6 +188,7 @@ public class JuegoControlador implements Observer {
             case D: tecla = 3; break;
             default: return;
         }
+        
         if (tecla != -1) {
             prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(), tecla, enemigos);
             pintarPersonajes();
