@@ -9,6 +9,7 @@ public class Juego {
     private int nivel;
     private GestorMapa GestorMapa; 
     private ArrayList<Enemigo> enemigos; 
+    private Prota prota;
     
     public static Juego getInstance() {
         if (instance == null) {
@@ -18,7 +19,8 @@ public class Juego {
     }
     
     private Juego() {
-        GestorMapa = new GestorMapa(); 
+        GestorMapa = new GestorMapa();
+        prota = new Prota(0, 0, 0,0, 0, 0, 0);
         enemigos = LectorEnemigo.leerEnemigos();
         
     }
@@ -41,5 +43,11 @@ public class Juego {
 
     public ArrayList<Enemigo> getEnemigos() {
         return enemigos; 
+    }
+    public Prota getProta() {
+        return prota;
+    }
+    public void setProta(Prota prota) {
+        this.prota = prota;
     }
 }

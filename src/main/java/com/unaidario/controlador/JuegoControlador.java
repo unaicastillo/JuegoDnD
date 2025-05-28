@@ -21,10 +21,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class JuegoControlador implements Observer {
-
+Prota prota;
     @FXML
     private AnchorPane anchorPane;
-    @FXML
+    private GridPane estadisticasGridPane;
     private GridPane gridPane;
 
     private HashMap<Integer, Image> imagenesEnemigos;
@@ -56,9 +56,26 @@ public class JuegoControlador implements Observer {
             gridPane.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints());
         }
 
+        // Panel derecho para estadísticas
         VBox vbox = new VBox();
         vbox.setPrefWidth(200);
         vbox.setSpacing(10);
+
+        // Instancia del prota (puedes obtenerla de tu modelo si ya existe)
+        prota = juego2.getProta();
+
+        // Añadir estadísticas del prota
+        javafx.scene.control.Label titulo = new javafx.scene.control.Label("Estadísticas del Protagonista");
+        javafx.scene.control.Label vida = new javafx.scene.control.Label("Vida: " + prota.getVida());
+        javafx.scene.control.Label ataque = new javafx.scene.control.Label("Ataque: " + prota.getAtaque());
+        javafx.scene.control.Label defensa = new javafx.scene.control.Label("Defensa: " + prota.getDefensa());
+        javafx.scene.control.Label evasion = new javafx.scene.control.Label("Evasión: " + prota.getEvasion());
+        javafx.scene.control.Label velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
+
+        vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad
+        
+        
+        );
 
         splitPane.getItems().addAll(gridPane, vbox);
 
@@ -117,7 +134,7 @@ public class JuegoControlador implements Observer {
         // Crear lista de entidades (enemigos + prota)
         ArrayList<Entidad> entidades = new ArrayList<>(enemigos);
         // Suponiendo que tienes una instancia de Prota, por ejemplo:
-        Prota prota = new Prota(15, 15, 15, 15, 15, 1, 1); // O usa tu getter si ya existe
+
         entidades.add(prota);
 
         for (Entidad entidad : entidades) {
