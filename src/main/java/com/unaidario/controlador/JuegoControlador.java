@@ -45,37 +45,41 @@ public class JuegoControlador implements Observer {
         enemigos = juego2.getEnemigos();
         inicializarVista();
         generarMapa();
+        llamadaTecla();
         pintarPersonajes();
         
+        
 
-        
-        
-        
-        
+    }
+    public void llamadaTecla(){
         anchorPane.setOnKeyPressed(event -> {
             int tecla = -1;
             switch (event.getCode()) {
-                case W: tecla = 0; break;
-                case A: tecla = 1; break;
-                case S: tecla = 2; break;
-                case D: tecla = 3; break;
-                default: return;
+                case W:
+                    tecla = 0;
+                    break;
+                case A:
+                    tecla = 1;
+                    break;
+                case S:
+                    tecla = 2;
+                    break;
+                case D:
+                    tecla = 3;
+                    break;
+                default:
+                    return;
             }
             if (tecla != -1) {
                 juego2.Turnos(tecla);
-                
+
                 pintarPersonajes();
             }
         });
 
         anchorPane.setFocusTraversable(true);
         Platform.runLater(() -> anchorPane.requestFocus());
-
-
-
-
     }
-
     public void inicializarVista() {
         prota = juego2.getProta();
 
@@ -127,11 +131,10 @@ public class JuegoControlador implements Observer {
         int columnas = matriz[0].length;
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
-
         Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.jpg"));
         Image pared = new Image(App.class.getResourceAsStream("Images/pared1.jpg"));
-
         for (int fila = 0; fila < filas; fila++) {
+            
             for (int columna = 0; columna < columnas; columna++) {
                 int valor = matriz[fila][columna];
                 ImageView imageView;
@@ -160,6 +163,7 @@ public class JuegoControlador implements Observer {
     // }
 
     private void pintarPersonajes() {
+        prota = juego2.getProta();
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);
 
         // Crear lista de entidades (enemigos + prota)
@@ -185,9 +189,9 @@ public class JuegoControlador implements Observer {
             entidadView.setPreserveRatio(true);
             gridPane.add(entidadView,
                     (entidad instanceof Enemigo) ? ((Enemigo) entidad).getPosicionX()
-                            : ((Prota) entidad).getPosicionX(),
+                            : prota.getPosicionX(),
                     (entidad instanceof Enemigo) ? ((Enemigo) entidad).getPosicionY()
-                            : ((Prota) entidad).getPosicionY());
+                            : prota.getPosicionY());
         }
     }
 
@@ -205,29 +209,30 @@ public class JuegoControlador implements Observer {
     // }
 
     // private void manejarTecla(javafx.scene.input.KeyEvent event) {
-    //     int tecla = -1;
-    //     switch (event.getCode()) {
-    //         case W:
-    //             tecla = 0;
-    //             break;
-    //         case A:
-    //             tecla = 1;
-    //             break;
-    //         case S:
-    //             tecla = 2;
-    //             break;
-    //         case D:
-    //             tecla = 3;
-    //             break;
-    //         default:
-    //             return;
-    //     }
+    // int tecla = -1;
+    // switch (event.getCode()) {
+    // case W:
+    // tecla = 0;
+    // break;
+    // case A:
+    // tecla = 1;
+    // break;
+    // case S:
+    // tecla = 2;
+    // break;
+    // case D:
+    // tecla = 3;
+    // break;
+    // default:
+    // return;
+    // }
 
-    //     if (tecla != -1) {
-    //         prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(), tecla, enemigos);
-    //         juego2.Turnos(tecla);
-    //         pintarPersonajes();
-    //     }
+    // if (tecla != -1) {
+    // prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(),
+    // tecla, enemigos);
+    // juego2.Turnos(tecla);
+    // pintarPersonajes();
+    // }
     // }
 
     @Override
