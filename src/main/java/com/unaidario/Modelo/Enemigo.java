@@ -1,15 +1,17 @@
 package com.unaidario.Modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Enemigo extends Entidad {
     private int tipo;
     private int percepcion;
-    private int posicionX;
-    private int posicionY;
+    private int posicionX;  //Columna
+    private int posicionY;  //Fila
 
     private Random r = new Random();
+    private Movimientos movimientos;
     
     public Enemigo(int tipo, int vida, int ataque, int defensa, int evasion,int percepcion, int velocidad, int posicionX, int posicionY) {
         super(vida, ataque, defensa, evasion, velocidad);
@@ -82,24 +84,25 @@ public class Enemigo extends Entidad {
      */
     public void movimientoErrante(int[][] mapa, ArrayList<Enemigo> enemigos){
 
-        for (int i = 0; i < 10; i++) {
-            //Obtener una dirección aleatoria y comprobar que la suma de la dirección y la antigua posición, lo que 
-            //es gual a la nueva posición, este libre de enemigos
-            int[] direccion = movimientos.getDireccion(r.nextInt(4));
-            int nuevaX = posicionX + direccion[0];
-            int nuevaY = posicionY + direccion[1];
+        ArrayList<int[]> direc = new ArrayList<>(movimientos.getDirecciones()); //Crea un Arraylis identico al de direcciones
+        Collections.shuffle(direc); // Desordena la lista
 
-           
-            //Comprobar que esta nueva posición: 1. sea un suelo    2. No este ocupada por un enemigo
-            if (comprobarLibreDeEnemigos(enemigos, nuevaX, nuevaY)==true && comprobarSuelo(mapa, nuevaX, nuevaY)==true) {
+        int nuevaX = 0;
+        int nuevaY = 0;
+
+        
+        for (int[] direccion : direc) {
+            nuevaX = posicionX + direccion[0];
+            nuevaY = posicionY + direccion[1];
+        
+            // Comprueba que la nueva posición es válida
+            if (comprobarLibreDeEnemigos(enemigos, nuevaX, nuevaY) && comprobarSuelo(mapa, nuevaX, nuevaY)) {
                 posicionX = nuevaX;
                 posicionY = nuevaY;
-                return;
-                //Return hace que se salga del método y solo cuando se ha obtenido una nueva posición viable
-                
+                return; // Salir del método
             }
-            
         }
+        
 
     }
 
@@ -225,8 +228,8 @@ public class Enemigo extends Entidad {
      * Y además comprueba que no se salga detro de los límites del mapa
      */
     public boolean comprobarSuelo(int[][] mapa, int nuevaPosicionX, int nuevaPosicionY){
-        if (posicionX <20 && posicionX >-1 && posicionX <20 && posicionX >-1){
-            if(mapa[posicionX][posicionY] == 0){
+        if (nuevaPosicionX <20 && nuevaPosicionX >-1 && nuevaPosicionY <20 && nuevaPosicionY >-1){
+            if(mapa[nuevaPosicionY][nuevaPosicionX] == 0){
                 return true;
             }
             else {

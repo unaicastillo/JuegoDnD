@@ -39,9 +39,9 @@ public class JuegoControlador implements Observer {
     public void initialize() {
         prota = juego2.getProta();
         imagenesEnemigos = new HashMap<>();
-        imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.jpg")));
-        imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.jpg")));
-        imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.jpg")));
+        imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.png")));
+        imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.png")));
+        imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.png")));
         enemigos = juego2.getEnemigos();
         inicializarVista();
         generarMapa();
@@ -55,24 +55,27 @@ public class JuegoControlador implements Observer {
         anchorPane.setOnKeyPressed(event -> {
             int tecla = -1;
             switch (event.getCode()) {
-                case W:
-                    tecla = 0;
+                case UP:
+                    tecla = 0; // Arriba
                     break;
                 case A:
-                    tecla = 1;
+                case LEFT:
+                    tecla = 1; // Izquierda
                     break;
                 case S:
-                    tecla = 2;
+                case DOWN:
+                    tecla = 2; // Abajo
                     break;
                 case D:
-                    tecla = 3;
+                case RIGHT:
+                    tecla = 3; // Derecha
                     break;
                 default:
                     return;
             }
             if (tecla != -1) {
                 juego2.Turnos(tecla);
-
+                generarMapa();
                 pintarPersonajes();
             }
         });
@@ -179,7 +182,7 @@ public class JuegoControlador implements Observer {
                 Enemigo enemigo = (Enemigo) entidad;
                 image = imagenesEnemigos.get(enemigo.getTipo());
             } else {
-                image = new Image(App.class.getResourceAsStream("Images/ProtaHH.jpg"));
+                image = new Image(App.class.getResourceAsStream("Images/ProtaHH.png"));
             }
             entidadView = new ImageView(image);
 
