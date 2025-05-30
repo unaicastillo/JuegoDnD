@@ -8,12 +8,13 @@ public class Movimientos {
 
     public Movimientos(){
         direcciones = new ArrayList<>();
-        direcciones.add(new int[]{-1,0});   //Arriba    W   0
-        direcciones.add(new int[]{0,-1});   //Izquierda A   1
-        direcciones.add(new int[]{1,0});   //Abajo      S   2
-        direcciones.add(new int[]{0,1});   //Derecha    D   3
+        direcciones.add(new int[]{0, -1});   // Arriba    W   0
+        direcciones.add(new int[]{-1, 0});   // Izquierda A   1
+        direcciones.add(new int[]{0, 1});    // Abajo     S   2
+        direcciones.add(new int[]{1, 0});    // Derecha   D   3
     }
 
+    // mapa[fila][columna] = mapa[Y][X]
 
     public ArrayList<int[]> getDirecciones() {
         return this.direcciones;
@@ -26,7 +27,7 @@ public class Movimientos {
 
 
     public int[] getDireccion(int x){//Devuelve la dirección correspondiente con su posición en el Array
-        if (x < 0 || x >= direcciones.size()) {
+        if (x >= 0 || x <= direcciones.size()) {
             return direcciones.get(x);
         }
         else {

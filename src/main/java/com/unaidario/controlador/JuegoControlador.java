@@ -63,7 +63,7 @@ public class JuegoControlador implements Observer {
             }
             if (tecla != -1) {
                 juego2.Turnos(tecla);
-                
+                generarMapa();
                 pintarPersonajes();
             }
         });

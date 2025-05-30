@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Prota extends Entidad {
     private int posicionX;
     private int posicionY;
+
+    private Movimientos movimientos;
     public Prota(int vida, int ataque, int defensa, int evasion, int velocidad , int posicionX, int posicionY) {
         super(vida, ataque, defensa, evasion, velocidad);
         this.posicionX = 1;
