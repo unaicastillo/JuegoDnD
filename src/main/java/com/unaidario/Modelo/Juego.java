@@ -73,6 +73,7 @@ public class Juego {
             } else {
                 int posicion = posicionEnemigo(enemigos, ((Enemigo) entidad));
                 enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), prota, enemigos);
+
                 
 
             }
