@@ -86,12 +86,6 @@ public class JuegoControlador implements Observer {
         anchorPane.setFocusTraversable(true);
         Platform.runLater(() -> anchorPane.requestFocus());
     }
-<<<<<<< HEAD
-=======
-
-    
-
->>>>>>> dario
     public void inicializarVista() {
         prota = juego2.getProta();
 
@@ -141,15 +135,10 @@ public class JuegoControlador implements Observer {
         int columnas = matriz[0].length;
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
-<<<<<<< HEAD
-        Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.jpg"));
-        Image pared = new Image(App.class.getResourceAsStream("Images/pared1.jpg"));
-=======
 
         Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.png"));
         Image pared = new Image(App.class.getResourceAsStream("Images/pared1.png"));
 
->>>>>>> dario
         for (int fila = 0; fila < filas; fila++) {
             
             for (int columna = 0; columna < columnas; columna++) {
