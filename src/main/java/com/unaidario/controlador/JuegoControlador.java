@@ -55,6 +55,7 @@ public class JuegoControlador implements Observer {
         anchorPane.setOnKeyPressed(event -> {
             int tecla = -1;
             switch (event.getCode()) {
+                case W:
                 case UP:
                     tecla = 0; // Arriba
                     break;
