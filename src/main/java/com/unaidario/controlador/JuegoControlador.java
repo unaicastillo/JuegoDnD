@@ -11,8 +11,7 @@ import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Mapa;
 import com.unaidario.Modelo.Prota;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
@@ -37,6 +36,7 @@ public class JuegoControlador implements Observer {
 
     @FXML
     public void initialize() {
+        
         prota = juego2.getProta();
         imagenesEnemigos = new HashMap<>();
         imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.png")));
@@ -78,6 +78,9 @@ public class JuegoControlador implements Observer {
                 juego2.Turnos(tecla);
                 generarMapa();
                 pintarPersonajes();
+                if (juego2.finalizarPartida()){
+                    mostrarFinDelJuego();
+                }
             }
         });
 
@@ -88,6 +91,8 @@ public class JuegoControlador implements Observer {
 
 
     }
+
+    
 
     public void inicializarVista() {
         prota = juego2.getProta();
@@ -117,9 +122,7 @@ public class JuegoControlador implements Observer {
         javafx.scene.control.Label evasion = new javafx.scene.control.Label("Evasión: " + prota.getEvasion());
         javafx.scene.control.Label velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
 
-        vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad
-
-        );
+        vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad);
 
         splitPane.getItems().addAll(gridPane, vbox);
 
@@ -141,8 +144,8 @@ public class JuegoControlador implements Observer {
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
 
-        Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.jpg"));
-        Image pared = new Image(App.class.getResourceAsStream("Images/pared1.jpg"));
+        Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.png"));
+        Image pared = new Image(App.class.getResourceAsStream("Images/pared1.png"));
 
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
@@ -247,6 +250,34 @@ public class JuegoControlador implements Observer {
     public void onChange() {
         // moverEnemigos();
         pintarPersonajes();
+    }
+
+
+    /*
+     * Si el prota ha muerto o ha acabado con todos los enemigos. Sale esta pantalla de fin de juego
+     * la cual es igual en ambos casos
+     */
+    public void mostrarFinDelJuego() {
+        anchorPane.getChildren().clear();
+
+        ImageView finView = new ImageView(new Image(App.class.getResourceAsStream("Images/gameOver.png")));
+        finView.setFitWidth(anchorPane.getWidth()/2);
+        finView.setFitHeight(anchorPane.getHeight()/2);
+        finView.setPreserveRatio(true);
+
+        javafx.scene.control.Button btnSalir = new javafx.scene.control.Button("Salir");
+        btnSalir.setOnAction(e -> {
+            Platform.exit();
+        });
+
+        VBox vbox = new VBox(10, finView, btnSalir);
+        vbox.setAlignment(javafx.geometry.Pos.CENTER);
+
+        anchorPane.getChildren().add(vbox);
+        AnchorPane.setTopAnchor(vbox, 0.0);
+        AnchorPane.setBottomAnchor(vbox, 0.0);
+        AnchorPane.setLeftAnchor(vbox, 0.0);
+        AnchorPane.setRightAnchor(vbox, 0.0);
     }
 
 }

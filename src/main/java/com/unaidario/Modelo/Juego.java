@@ -18,7 +18,7 @@ public class Juego {
         }
         return instance;
     }
-    
+
     private Juego() {
         GestorMapa = new GestorMapa();
         prota = new Prota(0, 0, 0,0, 0, 0, 0);
@@ -65,19 +65,29 @@ public class Juego {
     }
     public void Turnos(int tecla){
         ArrayList<Entidad> ordenados = orden();
-        for (Entidad entidad : ordenados) {
+        for (int i = 0; i < ordenados.size(); i++) {
+            Entidad entidad = ordenados.get(i);
 
             if (entidad instanceof Prota) {
-                prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, enemigos);
+                ordenados = prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, ordenados);
+
+                //Para finalizar abruptamente si es que se dan las condiciones para que se termine el juego
+                if(finalizarPartida()==true){
+                    return;
+                }
 
             } else {
                 int posicion = posicionEnemigo(enemigos, ((Enemigo) entidad));
-                enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), prota, enemigos);
+                ordenados = enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), ordenados);
 
+                if(finalizarPartida()==true){
+                    return;
+                }
                 
 
             }
         }
+
     }
 
     public int posicionEnemigo(ArrayList<Enemigo> enemigos, Enemigo enemigoBuscado) {
@@ -93,6 +103,28 @@ public class Juego {
         }
         return -1; // No encontrado
     }
- 
+    
+
+    public void certificarDefunción(ArrayList<Enemigo> enemigos){
+        for (int i=0; i<enemigos.size(); i++) {
+
+            if (enemigos.get(i).getVida() <= 0){
+                enemigos.remove(i);
+            }
+        }
+    }
+
+    /*
+     * Comprueba si se ha muerto el prota o todos los enemigos
+     */
+    public boolean finalizarPartida(){
+        if(prota.getVida()<1 || enemigos.size()<1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     
 }

@@ -39,24 +39,58 @@ public class Prota extends Entidad {
      *  pulsar w,a,s,d devuelve un int correspondiente con el índice del Array de dirección, al cual al 
      *  sumarlo con la posición devuelve la posición correspondiente a la tecla direccional pulsada
      */
-    public void movimientoProta(int[][] mapa, int tecla, ArrayList<Enemigo> enemigos){
+    public ArrayList<Entidad> movimientoProta(int[][] mapa, int tecla, ArrayList<Entidad> entidades){
+
 
         //Suma de la posición actual con la dirección correspondiente 
         int[] nuevaPosicion = movimientos.sumPosiciones(new int[] {posicionX,posicionY}, movimientos.getDireccion(tecla));
         
 
         if (comprobarSuelo(mapa, nuevaPosicion[0], nuevaPosicion[1])){
-            if(comprobarLibreDeEnemigos(enemigos, nuevaPosicion[0], nuevaPosicion[1])){
+            if(comprobarLibreDeEnemigos(entidades, nuevaPosicion[0], nuevaPosicion[1])){
                 // Si la posición esta libre de obstáculos y de enemigos, se cambian los valores de posición a esta nueva
                 posicionX = nuevaPosicion[0];
                 posicionY = nuevaPosicion[1];
             }
             else {
                 // Atacar al enemigo con posición = nuevaposicion[]
+                int num = buscarPosicion(entidades, nuevaPosicion[0], nuevaPosicion[1]);
+                entidades.set(num, atacar(entidades.get(num)));
             }
         }
+        return entidades;
         
 
+    }
+
+
+    public Entidad atacar(Entidad entidad){
+
+        if(entidad.getDefensa()>ataque){
+            entidad.setVida(entidad.getVida() - entidad.getDefensa()-ataque);
+        }
+        else{
+            int resto=entidad.getDefensa();
+            entidad.setVida(entidad.getVida() - (ataque-entidad.getDefensa())/2-resto);
+        }
+        return entidad;
+    }
+
+    /*
+     * Busca la posición en el ArrayList En la cual un enemigo tiene una posición
+     */
+    public int buscarPosicion(ArrayList<Entidad> entidades, int x, int y) {
+        for (int i = 0; i < entidades.size(); i++) {
+
+            if (entidades.get(i) instanceof Enemigo){
+                Enemigo enemigo = (Enemigo) entidades.get(i);
+                if (enemigo.getPosicionX() == x && enemigo.getPosicionY() == y) {
+                    return i;
+                }
+            }
+
+        }
+        return -1; // No encontrado
     }
 
 
@@ -74,13 +108,17 @@ public class Prota extends Entidad {
 
 
 
-    public boolean comprobarLibreDeEnemigos(ArrayList<Enemigo> enemigos, int nuevaPosicionX, int nuevaPosicionY){
+    public boolean comprobarLibreDeEnemigos(ArrayList<Entidad> entidades, int nuevaPosicionX, int nuevaPosicionY){
 
         boolean libre = true;
-        for (Enemigo enemigo : enemigos) {
-            if(enemigo.getPosicionX()==nuevaPosicionX && enemigo.getPosicionY()==nuevaPosicionY){
-                libre = false;
+        for (Entidad entidad : entidades) {
+            if(entidad instanceof Enemigo){ 
+                Enemigo enemigo = (Enemigo) entidad;
+                if(enemigo.getPosicionX()==nuevaPosicionX && enemigo.getPosicionY()==nuevaPosicionY){
+                    libre = false;
+                }
             }
+
         }
         return libre;
     }
@@ -88,5 +126,4 @@ public class Prota extends Entidad {
 
 
 }
-
 
