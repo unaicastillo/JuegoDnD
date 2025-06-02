@@ -65,24 +65,27 @@ public class Enemigo extends Entidad {
      */
 
 
-    public void moverEnemigo(int[][] mapa, Prota prota, ArrayList<Enemigo> enemigos){
+    public ArrayList<Entidad> moverEnemigo(int[][] mapa, ArrayList<Entidad> entidades){
+
+        Prota prota = (Prota) entidades.get(encontrarProta(entidades));
 
         
-        //Comprobar si el protagonista se encuentra dentro del rango de visión
+        //Comprobar si el protagonista se encuentra dentro del rango de visión        
         boolean detectado = Math.sqrt(Math.pow(prota.getPosicionX() - posicionX, 2) + Math.pow(prota.getPosicionY() - posicionY, 2)) <= percepcion;
         if(detectado){
-            IAenemigo(prota, mapa, enemigos);
+            IAenemigo(mapa, entidades, prota);
         }
         else{
-            movimientoErrante(mapa, enemigos);
+            movimientoErrante(mapa, entidades);
         }
+        return entidades;
     }
 
     /*
      * En este método hacemos que el enemio se mueba una posición aleatoria.
      * Si después de 10 intentos no se consigue encontrar una posición libre, el enemigo no se mueve y termina su turno.
      */
-    public void movimientoErrante(int[][] mapa, ArrayList<Enemigo> enemigos){
+    public void movimientoErrante(int[][] mapa, ArrayList<Entidad> entidades){
 
         ArrayList<int[]> direc = new ArrayList<>(movimientos.getDirecciones()); //Crea un Arraylis identico al de direcciones
         Collections.shuffle(direc); // Desordena la lista
@@ -96,7 +99,7 @@ public class Enemigo extends Entidad {
             nuevaY = posicionY + direccion[1];
         
             // Comprueba que la nueva posición es válida
-            if (comprobarLibreDeEnemigos(enemigos, nuevaX, nuevaY) && comprobarSuelo(mapa, nuevaX, nuevaY)) {
+            if (comprobarLibreDeEnemigos(entidades, nuevaX, nuevaY) && comprobarSuelo(mapa, nuevaX, nuevaY)) {
                 posicionX = nuevaX;
                 posicionY = nuevaY;
                 return; // Salir del método
@@ -137,15 +140,19 @@ public class Enemigo extends Entidad {
     /*
      * Esta clase comprueba que la posición a la que se quiere mover el enemigo no este ocupada por otro enemigo
      */
-    public boolean comprobarLibreDeEnemigos(ArrayList<Enemigo> enemigos, int nuevaPosicionX, int nuevaPosicionY){
+    public boolean comprobarLibreDeEnemigos(ArrayList<Entidad> entidades, int nuevaPosicionX, int nuevaPosicionY){
 
         boolean libre = true;
 
 
-        for (Enemigo enemigo : enemigos) {
-            if(enemigo.getPosicionX()==nuevaPosicionX && enemigo.getPosicionY()==nuevaPosicionY){
-                libre = false;
+        for (Entidad entidad : entidades) {
+            if (entidad instanceof Enemigo){
+                Enemigo enemigo = (Enemigo) entidad;
+                if(enemigo.getPosicionX()==nuevaPosicionX && enemigo.getPosicionY()==nuevaPosicionY){
+                    libre = false;
+                }
             }
+
         }
         return libre;
     }
@@ -157,7 +164,7 @@ public class Enemigo extends Entidad {
      * Si la posición mas óptima esta ocupada, tomara la seegunda posición mas óptima.
      * Si ninguna de las dos esta libre, se movera aleatoriamente por el método movimientoErrante
      */
-    public void IAenemigo(Prota prota, int[][] mapa, ArrayList<Enemigo> enemigos){
+    public ArrayList<Entidad> IAenemigo(int[][] mapa, ArrayList<Entidad> entidades, Prota prota){
 
         int[] mejorDir = null;
         int[] segundaMejorDir = null;
@@ -174,9 +181,10 @@ public class Enemigo extends Entidad {
         for (int[] dir : movimientos.getDirecciones()) {
             int nuevaX = posicionX + dir[0];
             int nuevaY = posicionY + dir[1];
+
             int distancia = Math.abs(nuevaX - prota.getPosicionX()) + Math.abs(nuevaY - prota.getPosicionY());
 
-            if (comprobarSuelo(mapa, nuevaX, nuevaY) && comprobarLibreDeEnemigos(enemigos, nuevaX, nuevaY)) {
+            if (comprobarSuelo(mapa, nuevaX, nuevaY) && comprobarLibreDeEnemigos(entidades, nuevaX, nuevaY)) {
                 if (distancia < menorDistancia) {
                     // Guardar las posiciones
                     segundaMejorDir = mejorDir;
@@ -201,7 +209,9 @@ public class Enemigo extends Entidad {
                 posicionY += mejorDir[1];
             }
             else{
-                //Atacar Prota
+                atatcar(prota);//Cambiar atributos del prota
+                entidades.set(encontrarProta(entidades), prota); //Cambiar el prota de entidades una vez ha sido atacado
+
             }
 
 
@@ -212,12 +222,14 @@ public class Enemigo extends Entidad {
                 posicionY += segundaMejorDir[1];
             }
             else{
-                //AtacarProta
+                atatcar(prota);
+                entidades.set(encontrarProta(entidades), prota);
             }
         }
         else {
-            movimientoErrante(mapa, enemigos);
+            movimientoErrante(mapa, entidades);
         }
+        return entidades;
 
 
     }
@@ -241,5 +253,27 @@ public class Enemigo extends Entidad {
         }
     }
 
+    public int encontrarProta(ArrayList<Entidad> entidades){
 
+        int posicion =-1;
+        for (int i = 0; i < entidades.size(); i++) {
+            
+            if (entidades.get(i) instanceof Prota){
+                posicion=i;
+            }
+            
+        }
+        return posicion;
+    }
+
+    public Prota atatcar(Prota prota){
+        if(prota.getDefensa()>ataque){
+            prota.setVida(prota.getVida() - prota.getDefensa()-ataque);
+        }
+        else{
+            int resto=prota.getDefensa();
+            prota.setVida(prota.getVida() - (ataque-prota.getDefensa())/2-resto);
+        }
+        return prota;
+    }
 }
