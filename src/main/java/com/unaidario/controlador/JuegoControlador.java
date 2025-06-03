@@ -11,7 +11,6 @@ import com.unaidario.Modelo.Juego;
 import com.unaidario.Modelo.Mapa;
 import com.unaidario.Modelo.Prota;
 
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
@@ -22,39 +21,46 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class JuegoControlador implements Observer {
-
+    
     Prota prota;
+    javafx.scene.control.Label titulo;
+    javafx.scene.control.Label ataque;
+    javafx.scene.control.Label defensa;
+    javafx.scene.control.Label evasion;
+    javafx.scene.control.Label vida;
+    javafx.scene.control.Label velocidad;
     @FXML
     private AnchorPane anchorPane;
-    private GridPane estadisticasGridPane;
     private GridPane gridPane;
-
+    
     private HashMap<Integer, Image> imagenesEnemigos;
     private ArrayList<Enemigo> enemigos;
+    VBox vbox = new VBox();
 
-    Juego juego2 = Juego.getInstance();
+    Juego juego = Juego.getInstance();
 
     @FXML
     public void initialize() {
-        
-        prota = juego2.getProta();
+
+        prota = juego.getProta();
         imagenesEnemigos = new HashMap<>();
         imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.png")));
         imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.png")));
         imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.png")));
-        enemigos = juego2.getEnemigos();
+        enemigos = juego.getEnemigos();
         inicializarVista();
         generarMapa();
         llamadaTecla();
+        juego.subscribe(this);
         pintarPersonajes();
-        
-        
 
     }
-    public void llamadaTecla(){
+
+    public void llamadaTecla() {
         anchorPane.setOnKeyPressed(event -> {
             int tecla = -1;
             switch (event.getCode()) {
+                case W:
                 case UP:
                     tecla = 0; // Arriba
                     break;
@@ -74,10 +80,10 @@ public class JuegoControlador implements Observer {
                     return;
             }
             if (tecla != -1) {
-                juego2.Turnos(tecla);
+                juego.Turnos(tecla);
                 generarMapa();
                 pintarPersonajes();
-                if (juego2.finalizarPartida()){
+                if (juego.finalizarPartida()) {
                     mostrarFinDelJuego();
                 }
             }
@@ -86,8 +92,9 @@ public class JuegoControlador implements Observer {
         anchorPane.setFocusTraversable(true);
         Platform.runLater(() -> anchorPane.requestFocus());
     }
+
     public void inicializarVista() {
-        prota = juego2.getProta();
+        prota = juego.getProta();
 
         SplitPane splitPane = new SplitPane();
         splitPane.setDividerPositions(0.75);
@@ -98,24 +105,8 @@ public class JuegoControlador implements Observer {
             gridPane.getRowConstraints().add(new javafx.scene.layout.RowConstraints());
             gridPane.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints());
         }
-
-        // Panel derecho para estadísticas
-        VBox vbox = new VBox();
         vbox.setPrefWidth(200);
         vbox.setSpacing(10);
-
-        // Instancia del prota (puedes obtenerla de tu modelo si ya existe)
-
-        // Añadir estadísticas del prota
-        javafx.scene.control.Label titulo = new javafx.scene.control.Label("Estadísticas del Protagonista");
-        javafx.scene.control.Label vida = new javafx.scene.control.Label("Vida: " + prota.getVida());
-        javafx.scene.control.Label ataque = new javafx.scene.control.Label("Ataque: " + prota.getAtaque());
-        javafx.scene.control.Label defensa = new javafx.scene.control.Label("Defensa: " + prota.getDefensa());
-        javafx.scene.control.Label evasion = new javafx.scene.control.Label("Evasión: " + prota.getEvasion());
-        javafx.scene.control.Label velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
-
-        vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad);
-
         splitPane.getItems().addAll(gridPane, vbox);
 
         AnchorPane.setTopAnchor(splitPane, 0.0);
@@ -124,12 +115,13 @@ public class JuegoControlador implements Observer {
         AnchorPane.setRightAnchor(splitPane, 0.0);
 
         anchorPane.getChildren().add(splitPane);
+
     }
 
     public void generarMapa() {
 
         gridPane.getChildren();
-        Mapa mapaActual = juego2.getGestorMapas().getMapaActual();
+        Mapa mapaActual = juego.getGestorMapas().getMapaActual();
         int[][] matriz = mapaActual.getMapa();
         int filas = matriz.length;
         int columnas = matriz[0].length;
@@ -140,7 +132,7 @@ public class JuegoControlador implements Observer {
         Image pared = new Image(App.class.getResourceAsStream("Images/pared1.png"));
 
         for (int fila = 0; fila < filas; fila++) {
-            
+
             for (int columna = 0; columna < columnas; columna++) {
                 int valor = matriz[fila][columna];
                 ImageView imageView;
@@ -169,7 +161,7 @@ public class JuegoControlador implements Observer {
     // }
 
     private void pintarPersonajes() {
-        prota = juego2.getProta();
+        prota = juego.getProta();
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);
 
         // Crear lista de entidades (enemigos + prota)
@@ -201,63 +193,40 @@ public class JuegoControlador implements Observer {
         }
     }
 
-    // private void moverEnemigos() {
-    // for (Enemigo enemigo : enemigos) {
-    // int nuevaX = enemigo.getPosicionX() + (int) (Math.random() * 3) - 1;
-    // int nuevaY = enemigo.getPosicionY() + (int) (Math.random() * 3) - 1;
-
-    // nuevaX = Math.max(0, Math.min(nuevaX, 19));
-    // nuevaY = Math.max(0, Math.min(nuevaY, 19));
-
-    // enemigo.setPosicionX(nuevaX);
-    // enemigo.setPosicionY(nuevaY);
-    // }
-    // }
-
-    // private void manejarTecla(javafx.scene.input.KeyEvent event) {
-    // int tecla = -1;
-    // switch (event.getCode()) {
-    // case W:
-    // tecla = 0;
-    // break;
-    // case A:
-    // tecla = 1;
-    // break;
-    // case S:
-    // tecla = 2;
-    // break;
-    // case D:
-    // tecla = 3;
-    // break;
-    // default:
-    // return;
-    // }
-
-    // if (tecla != -1) {
-    // prota.movimientoProta(juego2.getGestorMapas().getMapaActual().getMapa(),
-    // tecla, enemigos);
-    // juego2.Turnos(tecla);
-    // pintarPersonajes();
-    // }
-    // }
 
     @Override
     public void onChange() {
-        // moverEnemigos();
+        actualizarEstadisticas();
         pintarPersonajes();
     }
 
+    public void actualizarEstadisticas() {
+        // Actualizar las estadísticas del prota en la interfaz
+        // Panel derecho para estadísticas
+        vbox.getChildren().clear(); // Limpiar el VBox antes de agregar nuevos elementos
+        // Instancia del prota (puedes obtenerla de tu modelo si ya existe)
+        titulo = new javafx.scene.control.Label("Estadísticas del Protagonista");
+        vida = new javafx.scene.control.Label("Vida: " + prota.getVida());
+        ataque = new javafx.scene.control.Label("Ataque: " + prota.getAtaque());
+        defensa = new javafx.scene.control.Label("Defensa: " + prota.getDefensa());
+        evasion = new javafx.scene.control.Label("Evasión: " + prota.getEvasion());
+        velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
+
+
+        vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad);
+    }
 
     /*
-     * Si el prota ha muerto o ha acabado con todos los enemigos. Sale esta pantalla de fin de juego
+     * Si el prota ha muerto o ha acabado con todos los enemigos. Sale esta pantalla
+     * de fin de juego
      * la cual es igual en ambos casos
      */
     public void mostrarFinDelJuego() {
         anchorPane.getChildren().clear();
 
         ImageView finView = new ImageView(new Image(App.class.getResourceAsStream("Images/gameOver.png")));
-        finView.setFitWidth(anchorPane.getWidth()/2);
-        finView.setFitHeight(anchorPane.getHeight()/2);
+        finView.setFitWidth(anchorPane.getWidth() / 2);
+        finView.setFitHeight(anchorPane.getHeight() / 2);
         finView.setPreserveRatio(true);
 
         javafx.scene.control.Button btnSalir = new javafx.scene.control.Button("Salir");

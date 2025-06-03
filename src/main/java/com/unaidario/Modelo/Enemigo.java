@@ -209,7 +209,7 @@ public class Enemigo extends Entidad {
                 posicionY += mejorDir[1];
             }
             else{
-                atatcar(prota);//Cambiar atributos del prota
+                atacar(prota);//Cambiar atributos del prota
                 entidades.set(encontrarProta(entidades), prota); //Cambiar el prota de entidades una vez ha sido atacado
 
             }
@@ -222,7 +222,7 @@ public class Enemigo extends Entidad {
                 posicionY += segundaMejorDir[1];
             }
             else{
-                atatcar(prota);
+                atacar(prota);
                 entidades.set(encontrarProta(entidades), prota);
             }
         }
@@ -266,7 +266,7 @@ public class Enemigo extends Entidad {
         return posicion;
     }
 
-    public Prota atatcar(Prota prota){
+    public Prota atacar(Prota prota){
         if(prota.getDefensa()>ataque){
             prota.setVida(prota.getVida() - prota.getDefensa()-ataque);
         }

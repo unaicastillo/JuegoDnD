@@ -2,6 +2,7 @@ package com.unaidario.Modelo;
 
 import java.util.ArrayList;
 
+import com.unaidario.Interfaz.Observer;
 import com.unaidario.lectores.LectorEnemigo;
 
 public class Juego {
@@ -11,20 +12,35 @@ public class Juego {
     private ArrayList<Enemigo> enemigos; 
     private Prota prota;
     private Entidad entidadActual;
-    
-    public static Juego getInstance() {
+        ArrayList<Observer> observers;
+
+        
+        
+        public void subscribe(Observer observer) {
+            observers.add(observer);
+        }
+        
+        public void unsubscribe(Observer observer) {
+            observers.add(observer);
+        }
+        
+        public void notifyObservers() {
+            observers.forEach(item -> item.onChange());
+        }
+        
+        public static Juego getInstance() {
         if (instance == null) {
             instance = new Juego();
         }
         return instance;
     }
-
+    
     private Juego() {
         GestorMapa = new GestorMapa();
         prota = new Prota(0, 0, 0,0, 0, 0, 0);
         enemigos = LectorEnemigo.leerEnemigos();
-        
-    }
+        observers = new ArrayList<>();
+        }
     public Entidad getEntidadActual() {
         return entidadActual;
     }
@@ -87,6 +103,7 @@ public class Juego {
 
             }
         }
+        notifyObservers();
 
     }
 

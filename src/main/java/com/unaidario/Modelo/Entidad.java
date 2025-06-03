@@ -24,7 +24,9 @@ public class Entidad implements Comparable<Entidad> {
         if (vida < 0|| vida > 20) {
             this.vida=15;
         }
-        this.vida = vida;
+        else{
+            this.vida = vida;
+        }
     }
     public int getAtaque() {
         return ataque;
@@ -34,7 +36,9 @@ public class Entidad implements Comparable<Entidad> {
         if (ataque < 0|| ataque > 20) {
             this.ataque=15;
         }
-        this.ataque =ataque ;
+        else{
+            this.ataque =ataque ;
+        }
     }
     public int getDefensa() {
         return defensa;
@@ -43,7 +47,9 @@ public class Entidad implements Comparable<Entidad> {
         if (defensa< 0|| defensa> 20) {
             this.defensa=15;
         }
-        this.defensa = defensa;
+        else{
+            this.defensa = defensa;
+        }
     }
     public int getEvasion() {
         return evasion;
@@ -52,7 +58,10 @@ public class Entidad implements Comparable<Entidad> {
         if (evasion < 0|| evasion > 20) {
             this.evasion=15;
         }
-        this.evasion = evasion;
+        else{
+            this.evasion = evasion;
+
+        }
     }
     public int getVelocidad() {
         return velocidad;
@@ -62,7 +71,7 @@ public class Entidad implements Comparable<Entidad> {
             this.velocidad=15;
         }
         
-        this.velocidad = velocidad;
+        else{this.velocidad = velocidad;}
     }
       public int getVida() {
         return vida;
