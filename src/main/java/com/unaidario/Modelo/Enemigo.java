@@ -167,10 +167,8 @@ public class Enemigo extends Entidad {
     public ArrayList<Entidad> IAenemigo(int[][] mapa, ArrayList<Entidad> entidades, Prota prota){
 
         int[] mejorDir = null;
-        int[] segundaMejorDir = null;
 
         int menorDistancia = Integer.MAX_VALUE;
-        int segundaMenorDistancia = Integer.MAX_VALUE;
 
 
         /*
@@ -186,17 +184,11 @@ public class Enemigo extends Entidad {
 
             if (comprobarSuelo(mapa, nuevaX, nuevaY) && comprobarLibreDeEnemigos(entidades, nuevaX, nuevaY)) {
                 if (distancia < menorDistancia) {
-                    // Guardar las posiciones
-                    segundaMejorDir = mejorDir;
-                    segundaMenorDistancia = menorDistancia;
 
                     mejorDir = dir;
                     menorDistancia = distancia;
                 } 
-                else if (distancia < segundaMenorDistancia) {
-                    segundaMejorDir = dir;
-                    segundaMenorDistancia = distancia;
-                }
+
             }
         }
 
@@ -209,22 +201,19 @@ public class Enemigo extends Entidad {
                 posicionY += mejorDir[1];
             }
             else{
-                atacar(prota);//Cambiar atributos del prota
-                entidades.set(encontrarProta(entidades), prota); //Cambiar el prota de entidades una vez ha sido atacado
+                int posicionProta = encontrarProta(entidades);
+
+                /*A la hora de comprobar si el ataque es mortal, si no lo es, el ataque se realiza
+                 * automáticamente, si no, este if esta preparado para eliminar esta entidad
+                 */
+                if(entidades.get(posicionProta).ataqueFatal(ataque)){
+                    entidades.remove(posicionProta); 
+                }
+
 
             }
 
 
-        }
-        else if (segundaMejorDir != null) {
-            if (!comprobarOcupadoPorProta(posicionX + segundaMejorDir[0], posicionY + segundaMejorDir[1], prota)){
-                posicionX += segundaMejorDir[0];
-                posicionY += segundaMejorDir[1];
-            }
-            else{
-                atacar(prota);
-                entidades.set(encontrarProta(entidades), prota);
-            }
         }
         else {
             movimientoErrante(mapa, entidades);
@@ -266,14 +255,5 @@ public class Enemigo extends Entidad {
         return posicion;
     }
 
-    public Prota atacar(Prota prota){
-        if(prota.getDefensa()>ataque){
-            prota.setVida(prota.getVida() - prota.getDefensa()-ataque);
-        }
-        else{
-            int resto=prota.getDefensa();
-            prota.setVida(prota.getVida() - (ataque-prota.getDefensa())/2-resto);
-        }
-        return prota;
-    }
+
 }

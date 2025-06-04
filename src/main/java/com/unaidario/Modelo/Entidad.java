@@ -83,4 +83,26 @@ public class Entidad implements Comparable<Entidad> {
 
     
     public void moverse(int[][] mapa, ArrayList<Entidad> entidades){}
+
+    public void atacado(int ataqueRecibido){
+        if(defensa >= ataqueRecibido){
+            this.vida --;
+        }
+        else{
+            this.vida = vida - (ataqueRecibido-defensa);
+        }
+    }
+
+    /*Si el ataque que va a ser mortar devuelve true para eliminar directamente al enemigo, si no es fatal,
+     * devuelve false y se ataca automáticamente a esta entidad.
+     */
+    public boolean ataqueFatal(int ataqueRecibido){
+        if((vida+defensa)-ataqueRecibido <1 || vida == 1){
+            return true;
+        }
+        else{
+            atacado(ataqueRecibido);
+            return false;
+        }
+    }
 }

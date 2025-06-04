@@ -55,7 +55,13 @@ public class Prota extends Entidad {
             else {
                 // Atacar al enemigo con posición = nuevaposicion[]
                 int num = buscarPosicion(entidades, nuevaPosicion[0], nuevaPosicion[1]);
-                entidades.set(num, atacar(entidades.get(num)));
+
+                //Ataca o elimina al prota si es que el ataque es mortal
+                if(entidades.get(num).ataqueFatal(ataque)){
+                    entidades.remove(num);
+                }
+
+
             }
         }
         return entidades;

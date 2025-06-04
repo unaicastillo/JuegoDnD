@@ -164,13 +164,9 @@ public class JuegoControlador implements Observer {
         prota = juego.getProta();
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);
 
-        // Crear lista de entidades (enemigos + prota)
-        ArrayList<Entidad> entidades = new ArrayList<>(enemigos);
-        // Suponiendo que tienes una instancia de Prota, por ejemplo:
 
-        entidades.add(prota);
 
-        for (Entidad entidad : entidades) {
+        for (Entidad entidad : juego.getEntidades()) {
             ImageView entidadView = new ImageView();
             Image image = null;
             if (entidad instanceof Enemigo) {

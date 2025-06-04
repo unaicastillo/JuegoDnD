@@ -11,8 +11,8 @@ public class Juego {
     private GestorMapa GestorMapa; 
     private ArrayList<Enemigo> enemigos; 
     private Prota prota;
-    private Entidad entidadActual;
-        ArrayList<Observer> observers;
+    private ArrayList<Entidad> entidades;
+    ArrayList<Observer> observers;
 
         
         
@@ -40,13 +40,9 @@ public class Juego {
         prota = new Prota(0, 0, 0,0, 0, 0, 0);
         enemigos = LectorEnemigo.leerEnemigos();
         observers = new ArrayList<>();
-        }
-    public Entidad getEntidadActual() {
-        return entidadActual;
+        entidades = new ArrayList<>();
     }
-    public void setEntidadActual(Entidad entidadActual) {
-        this.entidadActual = entidadActual;
-    }
+
     public int getNivel() {
         return nivel;
     }
@@ -66,6 +62,9 @@ public class Juego {
     public ArrayList<Enemigo> getEnemigos() {
         return enemigos; 
     }
+    public ArrayList<Entidad> getEntidades() {
+        return entidades; 
+    }
     public Prota getProta() {
         return prota;
     }
@@ -80,29 +79,29 @@ public class Juego {
         return ordenados;
     }
     public void Turnos(int tecla){
-        ArrayList<Entidad> ordenados = orden();
-        for (int i = 0; i < ordenados.size(); i++) {
-            Entidad entidad = ordenados.get(i);
+        entidades.clear();
+        entidades = orden();
+        for (int i = 0; i < entidades.size(); i++) {
+            Entidad entidad = entidades.get(i);
 
             if (entidad instanceof Prota) {
-                ordenados = prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, ordenados);
+                entidades = prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, entidades);
 
-                //Para finalizar abruptamente si es que se dan las condiciones para que se termine el juego
-                if(finalizarPartida()==true){
-                    return;
-                }
 
-            } else {
+
+            } 
+            else {
                 int posicion = posicionEnemigo(enemigos, ((Enemigo) entidad));
-                ordenados = enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), ordenados);
-
-                if(finalizarPartida()==true){
-                    return;
-                }
-                
+                entidades = enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), entidades);
 
             }
+            
+            // if(finalizarPartida()==true){
+            //     return;
+            // }
         }
+        
+        actualizarEntidades();
         notifyObservers();
 
     }
@@ -135,12 +134,27 @@ public class Juego {
      * Comprueba si se ha muerto el prota o todos los enemigos
      */
     public boolean finalizarPartida(){
-        if(prota.getVida()<1 || enemigos.size()<1){
+        if(prota.getVida() < 1 || enemigos.size()<1){
             return true;
         }
         else{
             return false;
         }
+    }
+
+    public void actualizarEntidades(){
+        enemigos.clear();
+        ArrayList<Enemigo> nuevosEnemigos = new ArrayList<>();
+
+        for (Entidad entidad : entidades) {
+            if(entidad instanceof Enemigo){
+                nuevosEnemigos.add((Enemigo) entidad);
+            }
+            if(entidad instanceof Prota){
+                prota = (Prota) entidad;
+            }
+        }
+        this.enemigos = nuevosEnemigos;
     }
 
     
