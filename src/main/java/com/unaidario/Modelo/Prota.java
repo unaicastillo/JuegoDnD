@@ -60,8 +60,6 @@ public class Prota extends Entidad {
                 if(entidades.get(num).ataqueFatal(ataque)){
                     entidades.remove(num);
                 }
-
-
             }
         }
         return entidades;
@@ -70,17 +68,7 @@ public class Prota extends Entidad {
     }
 
 
-    public Entidad atacar(Entidad entidad){
 
-        if(entidad.getDefensa()>ataque){
-            entidad.setVida(entidad.getVida() - entidad.getDefensa()-ataque);
-        }
-        else{
-            int resto=entidad.getDefensa();
-            entidad.setVida(entidad.getVida() - (ataque-entidad.getDefensa())/2-resto);
-        }
-        return entidad;
-    }
 
     /*
      * Busca la posición en el ArrayList En la cual un enemigo tiene una posición
@@ -94,7 +82,6 @@ public class Prota extends Entidad {
                     return i;
                 }
             }
-
         }
         return -1; // No encontrado
     }

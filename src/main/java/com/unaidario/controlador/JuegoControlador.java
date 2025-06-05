@@ -47,6 +47,7 @@ public class JuegoControlador implements Observer {
         imagenesEnemigos.put(2, new Image(App.class.getResourceAsStream("Images/esbirro.png")));
         imagenesEnemigos.put(3, new Image(App.class.getResourceAsStream("Images/esqueleto.png")));
         imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.png")));
+
         enemigos = juego.getEnemigos();
         inicializarVista();
         generarMapa();
@@ -120,7 +121,7 @@ public class JuegoControlador implements Observer {
 
     public void generarMapa() {
 
-        gridPane.getChildren();
+        gridPane.getChildren().clear();
         Mapa mapaActual = juego.getGestorMapas().getMapaActual();
         int[][] matriz = mapaActual.getMapa();
         int filas = matriz.length;

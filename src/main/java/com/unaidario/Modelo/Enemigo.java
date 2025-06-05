@@ -207,7 +207,7 @@ public class Enemigo extends Entidad {
                  * automáticamente, si no, este if esta preparado para eliminar esta entidad
                  */
                 if(entidades.get(posicionProta).ataqueFatal(ataque)){
-                    entidades.remove(posicionProta); 
+                    entidades.get(posicionProta).setVida(0); 
                 }
 
 

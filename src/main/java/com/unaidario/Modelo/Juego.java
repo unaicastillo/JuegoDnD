@@ -65,6 +65,7 @@ public class Juego {
     public ArrayList<Entidad> getEntidades() {
         return entidades; 
     }
+
     public Prota getProta() {
         return prota;
     }
@@ -78,6 +79,7 @@ public class Juego {
         ordenados.sort(null); 
         return ordenados;
     }
+    
     public void Turnos(int tecla){
         entidades.clear();
         entidades = orden();

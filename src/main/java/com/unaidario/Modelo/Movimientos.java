@@ -26,9 +26,9 @@ public class Movimientos {
     }
 
 
-    public int[] getDireccion(int x){//Devuelve la dirección correspondiente con su posición en el Array
-        if (x >= 0 || x <= direcciones.size()) {
-            return direcciones.get(x);
+    public int[] getDireccion(int tecla){//Devuelve la dirección correspondiente con su posición en el Array
+        if (tecla >= 0 || tecla <= direcciones.size()) {
+            return direcciones.get(tecla);
         }
         else {
             return new int[] {0,0};
