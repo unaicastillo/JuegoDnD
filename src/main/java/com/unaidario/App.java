@@ -5,6 +5,9 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+    /** 
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         SceneManager sceneManager = SceneManager.getInstance();
@@ -17,6 +20,9 @@ public class App extends Application {
         
     }
 
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

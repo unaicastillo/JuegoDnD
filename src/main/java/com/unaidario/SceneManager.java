@@ -17,12 +17,18 @@ public class SceneManager {
     private SceneManager() {
         scenes = new HashMap<>();
     }
+    /** 
+     * @return SceneManager
+     */
     public static SceneManager getInstance(){
         if (instance==null){
             instance= new SceneManager();
         }
         return instance;
     }
+    /** 
+     * @param stage
+     */
     @SuppressWarnings("exports")
     public void init(Stage stage){
         this.stage=stage;
@@ -34,6 +40,12 @@ public class SceneManager {
 
 
 
+    /** 
+     * @param sceneID
+     * @param fxml
+     * @param width
+     * @param height
+     */
     public void setScene(SceneID sceneID, String fxml, int width, int height){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + fxml + ".fxml"));
@@ -44,10 +56,16 @@ public class SceneManager {
             e.printStackTrace(); 
         }
     }
+    /** 
+     * @param sceneID
+     */
     public void removeScene(SceneID sceneID){
         scenes.remove(sceneID); 
     }
 
+    /** 
+     * @param sceneID
+     */
     public void loadScene(SceneID sceneID) {
         if (scenes.containsKey(sceneID)) {
             stage.setScene(scenes.get(sceneID));

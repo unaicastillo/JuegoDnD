@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import com.unaidario.Modelo.Enemigo;
 
 public class LectorEnemigo {
+    /** 
+     * @return ArrayList<Enemigo>
+     */
     public static ArrayList<Enemigo> leerEnemigos() {
         ArrayList<Enemigo> enemigos = new ArrayList<>();
         String archivoCsv = "src/main/resources/com/unaidario/files/ArchivoEnemigos.csv";

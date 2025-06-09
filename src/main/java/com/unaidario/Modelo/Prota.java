@@ -15,22 +15,40 @@ public class Prota extends Entidad {
         movimientos = new Movimientos();
     }
 
+    /** 
+     * @return int
+     */
     public int getPosicionX() {
         return this.posicionX;
     }
 
+    /** 
+     * @param posicionX
+     */
     public void setPosicionX(int posicionX) {
         this.posicionX = posicionX;
     }
 
+    /** 
+     * @return int
+     */
     public int getPosicionY() {
         return this.posicionY;
     }
 
+    /** 
+     * @param posicionY
+     */
     public void setPosicionY(int posicionY) {
         this.posicionY = posicionY;
     }
 
+    /** 
+     * @param mapa
+     * @param tecla
+     * @param entidades
+     * @return ArrayList<Entidad>
+     */
     /*
      * Tecla representa la tecla que se ha pulsado en la vista (w, a, s, d)
      * si es w -> le sumará a la posición actual del protagonista la posición 0 del
@@ -88,6 +106,10 @@ public class Prota extends Entidad {
 
     }
 
+    /** 
+     * @param entidad
+     * @return Entidad
+     */
     public Entidad atacar(Entidad entidad) {
 
         if (entidad.getDefensa() > ataque) {
@@ -99,6 +121,12 @@ public class Prota extends Entidad {
         return entidad;
     }
 
+    /** 
+     * @param entidades
+     * @param x
+     * @param y
+     * @return int
+     */
     /*
      * Busca la posición en el ArrayList En la cual un enemigo tiene una posición
      */
@@ -116,29 +144,47 @@ public class Prota extends Entidad {
         return -1; // No encontrado
     }
 
+    /** 
+     * @param mapa
+     * @param nuevaPosicionX
+     * @param nuevaPosicionY
+     * @return boolean
+     */
     /*
      * Comprobar que la nueva posición a la que el enemigo se quiere desplazar, es
      * un suelo ( 0 )
      * Y además comprueba que no se salga detro de los límites del mapa
      */
     public boolean comprobarSuelo(int[][] mapa, int nuevaPosicionX, int nuevaPosicionY) {
-        if (nuevaPosicionX < 20 && nuevaPosicionX > -1 && nuevaPosicionY < 20 && nuevaPosicionY > -1) {
+        // Recuerda: mapa[fila][columna] = mapa[Y][X]
+        if (nuevaPosicionX >= 0 && nuevaPosicionX < mapa[0].length && nuevaPosicionY >= 0 && nuevaPosicionY < mapa.length) {
             return mapa[nuevaPosicionY][nuevaPosicionX] == 0;
         } else {
             return false;
         }
     }
-
+    
+    /** 
+     * @param mapa
+     * @param nuevaPosicionX
+     * @param nuevaPosicionY
+     * @return int
+     */
     public int comprobarTipoSuelo(int[][] mapa, int nuevaPosicionX, int nuevaPosicionY) {
-        int Tipo = 0;
-        if (mapa[nuevaPosicionX][nuevaPosicionY] == 0) {
-            return Tipo;
+        // Usa el mismo orden de índices que comprobarSuelo
+        if (mapa[nuevaPosicionY][nuevaPosicionX] == 0) {
+            return 0;
         } else {
-            Tipo = 2;
-            return Tipo;
+            return 2;
         }
     }
 
+    /** 
+     * @param entidades
+     * @param nuevaPosicionX
+     * @param nuevaPosicionY
+     * @return boolean
+     */
     public boolean comprobarLibreDeEnemigos(ArrayList<Entidad> entidades, int nuevaPosicionX, int nuevaPosicionY) {
 
         boolean libre = true;
