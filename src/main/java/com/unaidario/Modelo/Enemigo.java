@@ -2,7 +2,6 @@ package com.unaidario.Modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Enemigo extends Entidad {
     private int tipo;
@@ -10,7 +9,6 @@ public class Enemigo extends Entidad {
     private int posicionX;  //Columna
     private int posicionY;  //Fila
 
-    private Random r = new Random();
     private Movimientos movimientos;
     
     public Enemigo(int tipo, int vida, int ataque, int defensa, int evasion,int percepcion, int velocidad, int posicionX, int posicionY) {

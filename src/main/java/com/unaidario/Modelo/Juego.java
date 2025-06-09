@@ -65,7 +65,6 @@ public class Juego {
     public ArrayList<Entidad> getEntidades() {
         return entidades; 
     }
-
     public Prota getProta() {
         return prota;
     }
@@ -79,7 +78,6 @@ public class Juego {
         ordenados.sort(null); 
         return ordenados;
     }
-    
     public void Turnos(int tecla){
         entidades.clear();
         entidades = orden();
@@ -88,14 +86,10 @@ public class Juego {
 
             if (entidad instanceof Prota) {
                 entidades = prota.movimientoProta(GestorMapa.getMapaActual().getMapa(), tecla, entidades);
-
-
-
             } 
             else {
                 int posicion = posicionEnemigo(enemigos, ((Enemigo) entidad));
                 entidades = enemigos.get(posicion).moverEnemigo(GestorMapa.getMapaActual().getMapa(), entidades);
-
             }
             
             // if(finalizarPartida()==true){

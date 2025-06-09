@@ -1,9 +1,7 @@
 package com.unaidario.Modelo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.unaidario.Interfaz.Observer;
 import com.unaidario.lectores.LectorMapa;
 
 public class GestorMapa {

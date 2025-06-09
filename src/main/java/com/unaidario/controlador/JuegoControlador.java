@@ -28,6 +28,7 @@ public class JuegoControlador implements Observer {
     javafx.scene.control.Label defensa;
     javafx.scene.control.Label evasion;
     javafx.scene.control.Label vida;
+    javafx.scene.control.Label vidaEnemigo;
     javafx.scene.control.Label velocidad;
     @FXML
     private AnchorPane anchorPane;
@@ -49,6 +50,7 @@ public class JuegoControlador implements Observer {
         imagenesEnemigos.put(4, new Image(App.class.getResourceAsStream("Images/zombie.png")));
 
         enemigos = juego.getEnemigos();
+
         inicializarVista();
         generarMapa();
         llamadaTecla();
@@ -150,16 +152,7 @@ public class JuegoControlador implements Observer {
         }
     }
 
-    // public void cambiarMapa(){
-    // boolean haySiguiente=gestorMapa.avanzarAlSiguienteMapa();
-    // if (haySiguiente){
-    // HashMap<String,Mapa> mapas= juego.getGestorMapas().getMapas();
-    // mapas.clear();
-    // generarMapa();
-    // juego.iniciarentidades();
-    // pintarPersonajes();
-    // }
-    // }
+  
 
     private void pintarPersonajes() {
         prota = juego.getProta();
@@ -198,7 +191,6 @@ public class JuegoControlador implements Observer {
     }
 
     public void actualizarEstadisticas() {
-        // Actualizar las estadísticas del prota en la interfaz
         // Panel derecho para estadísticas
         vbox.getChildren().clear(); // Limpiar el VBox antes de agregar nuevos elementos
         // Instancia del prota (puedes obtenerla de tu modelo si ya existe)
@@ -208,9 +200,29 @@ public class JuegoControlador implements Observer {
         defensa = new javafx.scene.control.Label("Defensa: " + prota.getDefensa());
         evasion = new javafx.scene.control.Label("Evasión: " + prota.getEvasion());
         velocidad = new javafx.scene.control.Label("Velocidad: " + prota.getVelocidad());
-
-
+        for (Enemigo enemigo : enemigos) {
+            
+            
+        }
+        
         vbox.getChildren().addAll(titulo, vida, ataque, defensa, evasion, velocidad);
+        vbox.getChildren().add(new javafx.scene.control.Label(" "));
+        
+        // Lista ordenada de entidades (prota + enemigos)
+        ArrayList<Entidad> ordenados = juego.orden();
+        vida = new javafx.scene.control.Label("Vida: " + prota.getVida());
+
+    
+
+    for (Entidad entidad : ordenados) {
+        if (entidad instanceof Enemigo) {
+            Enemigo enemigo = (Enemigo) entidad;
+            javafx.scene.control.Label enemigoLabel = new javafx.scene.control.Label(
+                "Enemigo tipo " + enemigo.getTipo() + " | Vida: " + enemigo.getVida()
+            );
+            vbox.getChildren().add(enemigoLabel);
+        }
+    }
     }
 
     /*
