@@ -19,6 +19,9 @@ public class Entidad implements Comparable<Entidad> {
         movimientos = new Movimientos();
     }
 
+   /** 
+    * @param vida
+    */
    public void setVida(int vida) {
         
         if (vida < 0|| vida > 20) {
@@ -28,9 +31,15 @@ public class Entidad implements Comparable<Entidad> {
             this.vida = vida;
         }
     }
+    /** 
+     * @return int
+     */
     public int getAtaque() {
         return ataque;
     }
+    /** 
+     * @param ataque
+     */
     public void setAtaque(int ataque) {
         
         if (ataque < 0|| ataque > 20) {
@@ -40,9 +49,15 @@ public class Entidad implements Comparable<Entidad> {
             this.ataque =ataque ;
         }
     }
+    /** 
+     * @return int
+     */
     public int getDefensa() {
         return defensa;
     }
+    /** 
+     * @param defensa
+     */
     public void setDefensa(int defensa) {
         if (defensa< 0|| defensa> 20) {
             this.defensa=15;
@@ -51,9 +66,15 @@ public class Entidad implements Comparable<Entidad> {
             this.defensa = defensa;
         }
     }
+    /** 
+     * @return int
+     */
     public int getEvasion() {
         return evasion;
     }
+    /** 
+     * @param evasion
+     */
     public void setEvasion(int evasion) {
         if (evasion < 0|| evasion > 20) {
             this.evasion=15;
@@ -63,9 +84,15 @@ public class Entidad implements Comparable<Entidad> {
 
         }
     }
+    /** 
+     * @return int
+     */
     public int getVelocidad() {
         return velocidad;
     }
+    /** 
+     * @param velocidad
+     */
     public void setVelocidad(int velocidad) {
         if (velocidad< 0|| velocidad> 20) {
             this.velocidad=15;
@@ -73,9 +100,16 @@ public class Entidad implements Comparable<Entidad> {
         
         else{this.velocidad = velocidad;}
     }
+      /** 
+       * @return int
+       */
       public int getVida() {
         return vida;
     }
+    /** 
+     * @param otra
+     * @return int
+     */
     @Override
     public int compareTo(Entidad otra) {
         return Integer.compare(this.getVelocidad(), otra.getVelocidad());
@@ -84,6 +118,9 @@ public class Entidad implements Comparable<Entidad> {
     
     public void moverse(int[][] mapa, ArrayList<Entidad> entidades){}
 
+    /** 
+     * @param ataqueRecibido
+     */
     public void atacado(int ataqueRecibido){
         if(defensa >= ataqueRecibido){
             this.vida --;
@@ -93,6 +130,10 @@ public class Entidad implements Comparable<Entidad> {
         }
     }
 
+    /** 
+     * @param ataqueRecibido
+     * @return boolean
+     */
     /*Si el ataque que va a ser mortar devuelve true para eliminar directamente al enemigo, si no es fatal,
      * devuelve false y se ataca automáticamente a esta entidad.
      */

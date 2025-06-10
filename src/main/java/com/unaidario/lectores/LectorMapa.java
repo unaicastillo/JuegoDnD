@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import com.unaidario.Modelo.Mapa;
 
 public class LectorMapa {
+    /** 
+     * @return ArrayList<Mapa>
+     */
     public static ArrayList<Mapa> leerMapa() {
         ArrayList<Mapa> listaMapas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/com/unaidario/files/Mapa.unai"))) {

@@ -20,38 +20,67 @@ public class Enemigo extends Entidad {
         movimientos = new Movimientos();
     }
 
+    /** 
+     * @return int
+     */
     public int getTipo() {
         return tipo;
     }
 
+    /** 
+     * @param tipo
+     */
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
+    /** 
+     * @return int
+     */
     public int getPosicionX() {
         return posicionX;
     }
 
+    /** 
+     * @param posicionX
+     */
     public void setPosicionX(int posicionX) {
         this.posicionX = posicionX;
     }
 
+    /** 
+     * @return int
+     */
     public int getPosicionY() {
         return posicionY;
     }
+    /** 
+     * @return int
+     */
     public int getPercepcion() {
         return percepcion;
     }
+    /** 
+     * @param percepcion
+     */
     public void setPercepcion(int percepcion) {
         this.percepcion = percepcion;
     }
 
+    /** 
+     * @param posicionY
+     */
     public void setPosicionY(int posicionY) {
         this.posicionY = posicionY;
     }
 
     
 
+    /** 
+     * @param mapa
+     * @param entidades
+     * @return ArrayList<Entidad>
+     */
     /*
      * A partir de aqui se debe de gestionar todo para que el enemigo se mueva.
      * Se necesita:
@@ -79,6 +108,10 @@ public class Enemigo extends Entidad {
         return entidades;
     }
 
+    /** 
+     * @param mapa
+     * @param entidades
+     */
     /*
      * En este método hacemos que el enemio se mueba una posición aleatoria.
      * Si después de 10 intentos no se consigue encontrar una posición libre, el enemigo no se mueve y termina su turno.
@@ -108,6 +141,12 @@ public class Enemigo extends Entidad {
     }
 
 
+    /** 
+     * @param nuevaPosicionX
+     * @param nuevaPosicionY
+     * @param prota
+     * @return boolean
+     */
     /*
      * Una vez se ha comprobado que la posición a la que el enemigo se va a mover sea una pared y este
      * libre. Vamos a comprobar que la posición este ocupada por el protagonista para:
@@ -125,6 +164,9 @@ public class Enemigo extends Entidad {
     }
 
 
+    /** 
+     * @return boolean
+     */
     // public Prota atacarProta(Prota prota){
     //     int defensaProta  = prota.getDefensa()
     //     if(prota.getDefensa() > ataque){
@@ -156,6 +198,12 @@ public class Enemigo extends Entidad {
     }
 
 
+    /** 
+     * @param mapa
+     * @param entidades
+     * @param prota
+     * @return ArrayList<Entidad>
+     */
     /*
      * Este método es la IA que permite al enemigo buscar la posición mas eficiente para perseguir y
      * Aracar al protagonista.
@@ -222,6 +270,12 @@ public class Enemigo extends Entidad {
     }
 
 
+    /** 
+     * @param mapa
+     * @param nuevaPosicionX
+     * @param nuevaPosicionY
+     * @return boolean
+     */
     /*
      * Comprobar que la nueva posición a la que el enemigo se quiere desplazar, es un suelo ( 0 )
      * Y además comprueba que no se salga detro de los límites del mapa
@@ -240,6 +294,10 @@ public class Enemigo extends Entidad {
         }
     }
 
+    /** 
+     * @param entidades
+     * @return int
+     */
     public int encontrarProta(ArrayList<Entidad> entidades){
 
         int posicion =-1;

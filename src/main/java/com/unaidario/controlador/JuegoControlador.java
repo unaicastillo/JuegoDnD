@@ -209,12 +209,11 @@ public class JuegoControlador implements Observer {
         vbox.getChildren().add(new javafx.scene.control.Label(" "));
         
         // Lista ordenada de entidades (prota + enemigos)
-        ArrayList<Entidad> ordenados = juego.orden();
         vida = new javafx.scene.control.Label("Vida: " + prota.getVida());
 
     
 
-    for (Entidad entidad : ordenados) {
+    for (Entidad entidad : juego.getEntidades()) {
         if (entidad instanceof Enemigo) {
             Enemigo enemigo = (Enemigo) entidad;
             javafx.scene.control.Label enemigoLabel = new javafx.scene.control.Label(

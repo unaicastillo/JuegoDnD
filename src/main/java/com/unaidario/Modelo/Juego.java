@@ -16,10 +16,16 @@ public class Juego {
 
         
         
+        /** 
+         * @param observer
+         */
         public void subscribe(Observer observer) {
             observers.add(observer);
         }
         
+        /** 
+         * @param observer
+         */
         public void unsubscribe(Observer observer) {
             observers.add(observer);
         }
@@ -28,6 +34,9 @@ public class Juego {
             observers.forEach(item -> item.onChange());
         }
         
+        /** 
+         * @return Juego
+         */
         public static Juego getInstance() {
         if (instance == null) {
             instance = new Juego();
@@ -43,14 +52,23 @@ public class Juego {
         entidades = new ArrayList<>();
     }
 
+    /** 
+     * @return int
+     */
     public int getNivel() {
         return nivel;
     }
 
+    /** 
+     * @param nivel
+     */
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
+    /** 
+     * @return GestorMapa
+     */
     public GestorMapa getGestorMapas() {
         return GestorMapa;
     }
@@ -59,18 +77,33 @@ public class Juego {
         enemigos = LectorEnemigo.leerEnemigos();
     }
 
+    /** 
+     * @return ArrayList<Enemigo>
+     */
     public ArrayList<Enemigo> getEnemigos() {
         return enemigos; 
     }
+    /** 
+     * @return ArrayList<Entidad>
+     */
     public ArrayList<Entidad> getEntidades() {
         return entidades; 
     }
+    /** 
+     * @return Prota
+     */
     public Prota getProta() {
         return prota;
     }
+    /** 
+     * @param prota
+     */
     public void setProta(Prota prota) {
         this.prota = prota;
     }
+    /** 
+     * @return ArrayList<Entidad>
+     */
     public ArrayList<Entidad> orden() {
         ArrayList<Entidad> ordenados = new ArrayList<>();
         ordenados.add(prota);
@@ -78,6 +111,9 @@ public class Juego {
         ordenados.sort(null); 
         return ordenados;
     }
+    /** 
+     * @param tecla
+     */
     public void Turnos(int tecla){
         entidades.clear();
         entidades = orden();
@@ -102,6 +138,11 @@ public class Juego {
 
     }
 
+    /** 
+     * @param enemigos
+     * @param enemigoBuscado
+     * @return int
+     */
     public int posicionEnemigo(ArrayList<Enemigo> enemigos, Enemigo enemigoBuscado) {
         for (int i = 0; i < enemigos.size(); i++) {
             Enemigo e = enemigos.get(i);
@@ -117,6 +158,9 @@ public class Juego {
     }
     
 
+    /** 
+     * @param enemigos
+     */
     public void certificarDefunción(ArrayList<Enemigo> enemigos){
         for (int i=0; i<enemigos.size(); i++) {
 
@@ -126,6 +170,9 @@ public class Juego {
         }
     }
 
+    /** 
+     * @return boolean
+     */
     /*
      * Comprueba si se ha muerto el prota o todos los enemigos
      */

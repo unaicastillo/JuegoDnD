@@ -19,19 +19,31 @@ public class GestorMapa {
     }
 
 
+    /** 
+     * @return HashMap<String, Mapa>
+     */
     public HashMap<String,Mapa> getMapas() {
         return this.mapas;
     }
 
+    /** 
+     * @param mapas
+     */
     public void setMapas(HashMap<String,Mapa> mapas) {
         this.mapas = mapas;
     }
 
 
+    /** 
+     * @return Mapa
+     */
     public Mapa getMapaActual() {
         return this.mapaActual;
     }
 
+    /** 
+     * @param mapaActual
+     */
     public void setMapaActual(Mapa mapaActual) {
         this.mapaActual = mapaActual;
     }
