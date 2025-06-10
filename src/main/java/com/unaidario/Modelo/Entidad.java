@@ -3,14 +3,14 @@ package com.unaidario.Modelo;
 import java.util.ArrayList;
 
 public class Entidad implements Comparable<Entidad> {
-    public int vida;
+    public Float vida;
     public int ataque;
     public int defensa;
     public int evasion;
     public int velocidad;
 
     public Movimientos movimientos;
-    public Entidad(int vida, int ataque, int defensa, int evasion, int velocidad) {
+    public Entidad(Float vida, int ataque, int defensa, int evasion, int velocidad) {
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
@@ -19,10 +19,10 @@ public class Entidad implements Comparable<Entidad> {
         movimientos = new Movimientos();
     }
 
-   public void setVida(int vida) {
+   public void setVida(Float vida) {
         
         if (vida < 0|| vida > 20) {
-            this.vida=15;
+            this.vida=15f;
         }
         else{
             this.vida = vida;
@@ -73,7 +73,7 @@ public class Entidad implements Comparable<Entidad> {
         
         else{this.velocidad = velocidad;}
     }
-      public int getVida() {
+      public Float getVida() {
         return vida;
     }
     @Override
@@ -105,4 +105,5 @@ public class Entidad implements Comparable<Entidad> {
             return false;
         }
     }
+   
 }

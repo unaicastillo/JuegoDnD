@@ -1,11 +1,13 @@
 package com.unaidario.Modelo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.unaidario.Interfaz.Observer;
 import com.unaidario.lectores.LectorEnemigo;
 
 public class Juego {
+    public Random rd= new Random();
     private static Juego instance;
     private int nivel;
     private GestorMapa GestorMapa; 
@@ -13,6 +15,7 @@ public class Juego {
     private Prota prota;
     private ArrayList<Entidad> entidades;
     ArrayList<Observer> observers;
+    private Enemigo enem;
 
         
         
@@ -37,7 +40,7 @@ public class Juego {
     
     private Juego() {
         GestorMapa = new GestorMapa();
-        prota = new Prota(0, 0, 0,0, 0, 0, 0);
+        prota = new Prota(0f, 0, 0,0, 0, 0, 0);
         enemigos = LectorEnemigo.leerEnemigos();
         observers = new ArrayList<>();
         entidades = new ArrayList<>();
@@ -153,5 +156,19 @@ public class Juego {
         this.enemigos = nuevosEnemigos;
     }
 
-    
-}
+     public void maldito( ArrayList<Entidad> entity){
+        int aleatorio=rd.nextInt(11);
+
+        Entidad ent=entity.get(aleatorio);
+        
+                    if (ent instanceof Enemigo) {
+                        enem = (Enemigo) ent;
+                        Float vidaCambiada= enem.getVida()/4;
+                        enem.setVida(enem.getVida() - vidaCambiada); 
+                    }
+                    else{
+                        Float vidaCambiada= prota.getVida()/4;
+                        prota.setVida(prota.getVida() - vidaCambiada); 
+                }
+            }
+        }

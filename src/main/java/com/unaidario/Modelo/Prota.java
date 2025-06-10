@@ -8,7 +8,7 @@ public class Prota extends Entidad {
 
     private Movimientos movimientos;
 
-    public Prota(int vida, int ataque, int defensa, int evasion, int velocidad, int posicionX, int posicionY) {
+    public Prota(Float vida, int ataque, int defensa, int evasion, int velocidad, int posicionX, int posicionY) {
         super(vida, ataque, defensa, evasion, velocidad);
         this.posicionX = 1;
         this.posicionY = 1;
@@ -69,20 +69,22 @@ public class Prota extends Entidad {
                     }
                 }
             }
-            // else {
-            //      if (comprobarLibreDeEnemigos(entidades, nuevaPosicion[0], nuevaPosicion[1])) {
-            //             posicionX = nuevaPosicion[0];
-            //             posicionY = nuevaPosicion[1];
-            //             setVida(getVida() - 1); 
-            //         } else {
-            //             int num = buscarPosicion(entidades, nuevaPosicion[0], nuevaPosicion[1]);
+            else if(comprobarTipoSuelo(mapa, nuevaPosicion[0], nuevaPosicion[1])==2){
+                 if (comprobarLibreDeEnemigos(entidades, nuevaPosicion[0], nuevaPosicion[1])) {
+                        
+                        posicionX = nuevaPosicion[0];
+                        posicionY = nuevaPosicion[1];
+                        Juego.getInstance().maldito(entidades);
+                        
+                    } else {
+                        int num = buscarPosicion(entidades, nuevaPosicion[0], nuevaPosicion[1]);
 
-            //             if (entidades.get(num).ataqueFatal(ataque)) {
-            //                 entidades.remove(num);
-            //             }
+                        if (entidades.get(num).ataqueFatal(ataque)) {
+                            entidades.remove(num);
+                        }
 
-            //         }
-            // }
+                    }
+            }
         }
         return entidades;
 
@@ -123,7 +125,7 @@ public class Prota extends Entidad {
      */
     public boolean comprobarSuelo(int[][] mapa, int nuevaPosicionX, int nuevaPosicionY) {
         if (nuevaPosicionX < 20 && nuevaPosicionX > -1 && nuevaPosicionY < 20 && nuevaPosicionY > -1) {
-            return mapa[nuevaPosicionY][nuevaPosicionX] == 0;
+            return mapa[nuevaPosicionY][nuevaPosicionX] != 1;
         } else {
             return false;
         }

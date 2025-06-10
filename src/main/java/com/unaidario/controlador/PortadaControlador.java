@@ -63,7 +63,7 @@ public class PortadaControlador {
     Juego juego2 = Juego.getInstance();
     @FXML
     public void initialize() {
-        prota = new Prota(0, 0, 0, 0, 0, 1, 1);
+        prota = new Prota(0f, 0, 0, 0, 0, 1, 1);
 
         vidaField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
         ataqueField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
@@ -85,7 +85,7 @@ public class PortadaControlador {
     private void cambiarAVistaJuego() {
         try {
             prota = juego2.getProta();
-            prota.setVida(Integer.parseInt(vidaField.getText()));
+            prota.setVida(Float.parseFloat(vidaField.getText()));
             prota.setAtaque(Integer.parseInt(ataqueField.getText()));
             prota.setDefensa(Integer.parseInt(defensaField.getText()));
             prota.setEvasion(Integer.parseInt(evasionField.getText()));

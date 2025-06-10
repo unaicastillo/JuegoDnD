@@ -3,13 +3,15 @@ package com.unaidario.Modelo;
 public class Mapa {
     private String suelo;
     private String pared;
+    private String maldicion;
     private String nivel;
     private int[][] mapa;
-    public Mapa(String suelo, String pared, String nivel, int[][] mapa) {
+    public Mapa(String suelo, String pared ,String maldicion, String nivel, int[][] mapa) {
         this.suelo = suelo;
         this.pared = pared;
         this.nivel = nivel;
         this.mapa = mapa;
+        this.maldicion=maldicion;
     }
     public String getSuelo() {
         return suelo;
@@ -35,4 +37,11 @@ public class Mapa {
     public void setMapa(int[][] mapa) {
         this.mapa = mapa;
     }
+    public String getMaldicion() {
+        return maldicion;
+    }
+    public void setMaldicion(String maldicion) {
+        this.maldicion= maldicion;
+    }
+    
 }

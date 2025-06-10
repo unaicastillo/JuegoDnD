@@ -19,7 +19,7 @@ public class LectorEnemigo {
             while ((linea = br.readLine()) != null) {
                 String[] valores = linea.split(",");
                 int tipo = Integer.parseInt(valores[0]);
-                int salud = Integer.parseInt(valores[1]);
+                Float vida = Float.parseFloat(valores[1]);
                 int ataque = Integer.parseInt(valores[2]);
                 int defensa = Integer.parseInt(valores[3]);
                 int evasion = Integer.parseInt(valores[4]);
@@ -28,7 +28,7 @@ public class LectorEnemigo {
                 int posicionX = Integer.parseInt(valores[7]);
                 int posicionY = Integer.parseInt(valores[8]);
 
-                Enemigo enemigo = new Enemigo(tipo, salud, ataque, defensa, evasion, percepcion, velocidad, posicionX, posicionY);
+                Enemigo enemigo = new Enemigo(tipo, vida, ataque, defensa, evasion, percepcion, velocidad, posicionX, posicionY);
                 enemigos.add(enemigo);
             }
         } catch (IOException e) {

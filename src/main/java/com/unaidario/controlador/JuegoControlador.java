@@ -133,6 +133,7 @@ public class JuegoControlador implements Observer {
 
         Image suelo = new Image(App.class.getResourceAsStream("Images/suelo1.png"));
         Image pared = new Image(App.class.getResourceAsStream("Images/pared1.png"));
+        Image maldicion = new Image(App.class.getResourceAsStream("Images/Maldicion.png"));
 
         for (int fila = 0; fila < filas; fila++) {
 
@@ -141,6 +142,8 @@ public class JuegoControlador implements Observer {
                 ImageView imageView;
                 if (valor == 0) {
                     imageView = new ImageView(suelo);
+                } else if (valor == 2) {
+                    imageView = new ImageView(maldicion);
                 } else {
                     imageView = new ImageView(pared);
                 }

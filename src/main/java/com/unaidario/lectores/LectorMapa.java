@@ -12,7 +12,10 @@ public class LectorMapa {
         ArrayList<Mapa> listaMapas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/com/unaidario/files/Mapa.unai"))) {
             String linea;
-            String suelo = null, pared = null, nivel = null;
+            String suelo = null;
+            String pared = null;
+            String nivel = null;
+            String maldicion = null;
             int tamanoX = 0, tamanoY = 0;
             int[][] mapa = null;
 
@@ -22,6 +25,8 @@ public class LectorMapa {
                         suelo = linea.split(":")[1];
                     } else if (linea.startsWith("#pared:")) {
                         pared = linea.split(":")[1];
+                    } else if (linea.startsWith("#maldicion:")) {
+                        maldicion = linea.split(":")[1];
                     } else if (linea.startsWith("#nivel:")) {
                         nivel = linea.split(":")[1];
                     } else if (linea.startsWith("#tamanoX:")) {
@@ -40,7 +45,7 @@ public class LectorMapa {
                             linea = br.readLine();
                         }
                     }
-                    listaMapas.add(new Mapa(suelo, pared, nivel, mapa));
+                    listaMapas.add(new Mapa(suelo, pared,maldicion, nivel, mapa));
                 }
             }
         } catch (IOException e) {
